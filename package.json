@@ -1,0 +1,22 @@
+{
+  "name": "dennisjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dennis.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenhoff/dennisjs.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kenhoff/dennisjs/issues"
+  },
+  "homepage": "https://github.com/kenhoff/dennisjs#readme",
+  "dependencies": {
+    "botkit": "0.0.5"
+  }
+}
