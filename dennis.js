@@ -1,9 +1,23 @@
+if (process.env.NODE_ENV != "production") {
+	require('dotenv').config();
+}
+
+if (!process.env.SLACK_BOT_API_TOKEN) {
+	console.log("*******************************************************************");
+	console.log("process.env.SLACK_BOT_API_TOKEN not found!");
+	console.log("run this script with a token like this:");
+	console.log("SLACK_BOT_API_TOKEN=your-slack-bot-api-token-here nodemon dennis.js");
+	console.log("or place SLACK_BOT_API_TOKEN=your-slack-bot-api-token-here in .env");
+	console.log("*******************************************************************");
+	throw "process.env.SLACK_BOT_API_TOKEN not found"
+}
+
 var app = require('express')();
 
 var botkit = require('botkit');
 var controller = botkit.slackbot();
 var bot = controller.spawn({
-	token: "xoxb-18258668000-CZNGUkvapgTBTgfnRDyCbq9D"
+	token: process.env.SLACK_BOT_API_TOKEN
 })
 
 randomMapGenerator = require("./mapGenerator.js")
