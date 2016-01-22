@@ -82,6 +82,8 @@ controller.hears(['.*'], "direct_message", function(bot, message) {
 	bot.reply(message, "I didn't quite understand that. Type `help` to get some commands that you can use.")
 })
 
-
+app.get("*", function (req, res) {
+	res.sendStatus(200)
+})
 
 app.listen(process.env.PORT || 3000)
