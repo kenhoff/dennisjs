@@ -1,3 +1,5 @@
+var app = require('express')();
+
 var botkit = require('botkit');
 var controller = botkit.slackbot();
 var bot = controller.spawn({
@@ -65,3 +67,7 @@ controller.hears(['map'], "direct_message", function(bot, message) {
 controller.hears(['.*'], "direct_message", function(bot, message) {
 	bot.reply(message, "I didn't quite understand that. Type `help` to get some commands that you can use.")
 })
+
+
+
+app.listen(process.env.PORT || 3000)
