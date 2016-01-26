@@ -28,16 +28,23 @@ randomMapGenerator = require("./mapGenerator.js")
 mapPrinter = require("./mapPrinter.js")
 
 var mapConfig = {
-    blobbiness: 0.0,
-    width: 20,
-    height: 20,
-    numberOfRooms: 150,
-    objects: [
-        {displayChar: "g", displayName: "Goblin"},
-        {displayChar: "$", displayName: "Dolla"},
-        {displayChar: "<", displayName: "Entrance"},
-        {displayChar: ">", displayName: "Exit"},
-    ],
+	blobbiness: 0.0,
+	width: 20,
+	height: 20,
+	numberOfRooms: 150,
+	objects: [{
+		displayChar: "g",
+		displayName: "Goblin"
+	}, {
+		displayChar: "$",
+		displayName: "Dolla"
+	}, {
+		displayChar: "<",
+		displayName: "Entrance"
+	}, {
+		displayChar: ">",
+		displayName: "Exit"
+	}, ],
 };
 
 games = {}
@@ -103,13 +110,12 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 
 controller.hears(['map'], "direct_message", function(bot, message) {
 	controller.storage.users.get(message.user, function(err, user_game) {
-
-	if (user_game.gameActive == true) {
-		bot.reply(message, mapPrinter(games[message.user].map))
-	} else {
-		bot.reply(message, "you don't have a new game started! Start one with `new game`")
-	}
-})
+		if (user_game.gameActive == true) {
+			bot.reply(message, mapPrinter(user_game.map))
+		} else {
+			bot.reply(message, "you don't have a new game started! Start one with `new game`")
+		}
+	})
 })
 
 controller.hears(['.*'], "direct_message", function(bot, message) {
