@@ -134,8 +134,11 @@ function makeDoors(x, y, map, mapConfig) {
     var defOpenIdx = chooseGuaranteedOpenDoorIdx(candidates, x, y, map, mapConfig);
     var defOpen = candidates[defOpenIdx];
     doorsMade.push(defOpen);
-    map[defOpen.x][defOpen.y].displayChar = ROOM_CHAR;
-    map[defOpen.x][defOpen.y].displayName = "Empty Room";
+    map[defOpen.x][defOpen.y].objects = [];
+    map[defOpen.x][defOpen.y].x = x;
+    map[defOpen.x][defOpen.y].y = y;
+    map[defOpen.x][defOpen.y].doors = {};
+    map[defOpen.x][defOpen.y].isRoom = true;
 
     for(var i = 0; i < candidates.length; i++) {
         if(i == defOpenIdx) {
@@ -144,8 +147,11 @@ function makeDoors(x, y, map, mapConfig) {
         
         var c = candidates[i];
         if(Math.random() < mapConfig.blobbiness) {
-            map[c.x][c.y].displayChar = ROOM_CHAR;
-            map[c.x][c.y].displayName = "Empty Room";
+            map[c.x][c.y].objects = [];
+            map[c.x][c.y].x = x;
+            map[c.x][c.y].y = y;
+            map[c.x][c.y].doors = {};
+            map[c.x][c.y].isRoom = true;
             doorsMade.push(c);
         }
     }
@@ -163,11 +169,33 @@ function placeObjects(roomList, map, mapConfig) {
     while(nPlaced < maxPlaced) {
         var i = Math.floor(Math.random() * roomList.length);
         var room = roomList[i];
-        if(map[room.x][room.y].displayChar == ROOM_CHAR) {
-            map[room.x][room.y] = mapConfig.objects[nPlaced];
-            nPlaced += 1;
-        }
+        map[room.x][room.y].objects.push(mapConfig.objects[nPlaced]);
+        nPlaced += 1;
     }
+}
+
+function markDoors(roomList, map) {
+    roomList.forEach(function(roomCoords) {
+        var x = roomCoords.x;
+        var y = roomCoords.y;
+        var room = map[x][y];
+        console.log(roomCoords, room, map[x][y]);
+        if(x > 0) {
+            room.doors.west = "isRoom" in map[x-1][y];
+        }
+
+        if(x < (map[0].length - 1)) {
+            room.doors.east = "isRoom" in map[x+1][y];
+        }
+
+        if(y > 0) {
+            room.doors.north = "isRoom" in map[x][y-1];
+        }
+
+        if(y < (map.length - 1)) {
+            room.doors.south = "isRoom" in map[x][y+1];
+        }
+    });
 }
 
 module.exports = function(mapConfig) {
@@ -191,6 +219,7 @@ module.exports = function(mapConfig) {
         }
     }
 
+    //markDoors(roomList, map);
     placeObjects(roomList, map, mapConfig);
     return map;
 }
