@@ -71,11 +71,14 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 })
 
 controller.hears(['map'], "direct_message", function(bot, message) {
-	if (message.user in games) {
+	controller.storage.users.get(message.user, function(err, user_game) {
+
+	if (user_game.gameActive == true) {
 		bot.reply(message, mapPrinter(games[message.user].map))
 	} else {
 		bot.reply(message, "you don't have a new game started! Start one with `new game`")
 	}
+})
 })
 
 controller.hears(['.*'], "direct_message", function(bot, message) {
