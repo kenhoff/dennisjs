@@ -106,6 +106,27 @@ function chooseGuaranteedOpenDoorIdx(candidates, x, y, map, mapConfig) {
     return cIdx;
 }
 
+function findRestartLocation(x, y, map, mapConfig, nRooms) {
+    var maxWalkback = Math.floor(Math.random() * nRooms);
+
+    var cur_node = {x: x, y: y};
+    var walkedBack = 0;
+    while(walkedBack < maxWalkback) {
+        var cands = neighborsWithDoors(x, y, map, mapConfig);
+
+        if(cands.length == 0) {
+            break;
+        }
+        else {
+            walkedBack += 1;
+            cur_node = cands[Math.floor(Math.random() * cands.length)];
+        }
+    }
+
+    console.log("Finished walkback after " + walkedBack + " steps");
+    return cur_node;
+}
+
 function makeDoors(x, y, map, mapConfig) {
     var doorsMade = [];
 
@@ -137,10 +158,10 @@ function makeDoors(x, y, map, mapConfig) {
 
 module.exports = function() {
     var mapConfig = {
-        blobbiness: 0.01,
-        width: 40,
-        height: 40,
-        numberOfRooms: 200,
+        blobbiness: 0.0,
+        width: 20,
+        height: 20,
+        numberOfRooms: 150,
     };
 
 	var map = emptyMap(mapConfig.width, mapConfig.height);
@@ -161,8 +182,8 @@ module.exports = function() {
         //console.log(mapPrinter(map));
 
         if(roomStack.length == 0) {
-            console.log("Ended because stack was empty");
-            break;
+            console.log("Restarting traversal after getting stuck");
+            roomStack.push(findRestartLocation(cur.x, cur.y, map, mapConfig, nRooms));
         }
     }
 

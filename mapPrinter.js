@@ -10,8 +10,8 @@ module.exports = function(map) {
 
 	output = "```\n"
 
-	for (var y = 0; y < 40; y++) {
-		for (var x = 0; x < 40; x++) {
+	for (var y = 0; y < 20; y++) {
+		for (var x = 0; x < 20; x++) {
 			output += map[x][y].contents + " "
 		}
 		output+="\n"
