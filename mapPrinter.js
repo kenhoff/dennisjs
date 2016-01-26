@@ -13,7 +13,7 @@ module.exports = function(map) {
 	for (var y = 0; y < map.length; y++) {
 		for (var x = 0; x < map[0].length; x++) {
             if("isRoom" in map[x][y] && map[x][y].objects.length > 0) {
-                output += map[x][y].objects[0].displayChar + " "
+                output += map[x][y].objects[map[x][y].objects.length-1].displayChar + " "
             }
             else if("isRoom" in map[x][y]) {
                 output += ". ";
