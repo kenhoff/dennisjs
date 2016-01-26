@@ -153,7 +153,7 @@ function makeDoors(x, y, map, mapConfig) {
     return doorsMade;
 }
 
-function placeObjects(roomList, mapConfig) {
+function placeObjects(roomList, map, mapConfig) {
     var nPlaced = 0;
     var maxPlaced = mapConfig.objects.length;
     if(maxPlaced > roomList.length) {
@@ -162,10 +162,9 @@ function placeObjects(roomList, mapConfig) {
 
     while(nPlaced < maxPlaced) {
         var i = Math.floor(Math.random() * roomList.length);
-        if(roomList[i].displayChar == ROOM_CHAR) {
-            var obj = mapConfig.objects[nPlaced];
-            roomList[i].displayChar = obj.displayChar;
-            roomList[i].displayName = obj.displayName;
+        var room = roomList[i];
+        if(map[room.x][room.y].displayChar == ROOM_CHAR) {
+            map[room.x][room.y] = mapConfig.objects[nPlaced];
             nPlaced += 1;
         }
     }
@@ -182,7 +181,7 @@ module.exports = function(mapConfig) {
     while(nRooms < mapConfig.numberOfRooms) {
         var cur = roomStack.pop();
         var doorsAdded = makeDoors(cur.x, cur.y, map, mapConfig);
-        roomList.push(map[cur.x][cur.y]);
+        roomList.push(cur);
 
         roomStack = roomStack.concat(doorsAdded);
         nRooms += doorsAdded.length;
@@ -192,6 +191,6 @@ module.exports = function(mapConfig) {
         }
     }
 
-    placeObjects(roomList, mapConfig);
+    placeObjects(roomList, map, mapConfig);
     return map;
 }
