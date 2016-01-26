@@ -26,28 +26,36 @@ var bot = controller.spawn({
 
 randomMapGenerator = require("./mapGenerator.js")
 mapPrinter = require("./mapPrinter.js")
+findPlayer = require("./findPlayer.js")
+movePlayer = require("./movePlayer.js")
 
 var mapConfig = {
-	blobbiness: 0.0,
-	width: 20,
-	height: 20,
-	numberOfRooms: 150,
+	blobbiness: 0.5,
+	width: 10,
+	height: 10,
+	numberOfRooms: 11,
 	objects: [{
+		id: "goblin",
 		displayChar: "g",
 		displayName: "Goblin"
 	}, {
+		id: "gold",
 		displayChar: "$",
 		displayName: "Dolla"
 	}, {
+		id: "entrance",
 		displayChar: "<",
 		displayName: "Entrance"
 	}, {
+		id: "exit",
 		displayChar: ">",
 		displayName: "Exit"
-	}, ],
+	}, {
+		id: "player",
+		displayChar: "p",
+		displayName: "You"
+	}],
 };
-
-games = {}
 
 bot.startRTM(function(err, bot, payload) {
 	if (err) {
@@ -66,13 +74,14 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 					pattern: bot.utterances.yes,
 					callback: function(response, convo) {
 						convo.say("Starting new game...")
+						map = randomMapGenerator(mapConfig)
 						controller.storage.users.save({
 							id: message.user,
 							gameActive: true,
-							map: randomMapGenerator(mapConfig)
+							map: map
 						}, function(err) {
 							if (err) {
-								convo.say(message, "error starting game!")
+								convo.say("error starting game!")
 							} else {
 								convo.say("Welcome to the great and terrible dungeon of Yendor! The dungeon keeper, Rodney, has imprisoned your best friend, Dennis, in the depths below.")
 								convo.say("Good luck!")
@@ -91,10 +100,11 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 			})
 		} else {
 			bot.reply(message, "Starting new game...")
+			map = randomMapGenerator(mapConfig)
 			controller.storage.users.save({
 				id: message.user,
 				gameActive: true,
-				map: randomMapGenerator(mapConfig)
+				map: map
 			}, function(err) {
 				if (err) {
 					bot.reply(message, "error starting game!")
@@ -114,6 +124,28 @@ controller.hears(['map'], "direct_message", function(bot, message) {
 			bot.reply(message, mapPrinter(user_game.map))
 		} else {
 			bot.reply(message, "you don't have a new game started! Start one with `new game`")
+		}
+	})
+})
+
+controller.hears(['look'], "direct_message", function(bot, message) {
+	controller.storage.users.get(message.user, function(err, user_game) {
+		if (user_game.gameActive == true) {
+			bot.reply(message, "looking...")
+			playerLocation = findPlayer(user_game.map)
+			bot.reply(message, "location:" + playerLocation.x + " " + playerLocation.y)
+		} else {
+			bot.reply(message, "you don't have a new game started! Start one with `new game`")
+		}
+	})
+})
+
+controller.hears(['move (north|south|east|west)'], 'direct_message', function (bot, message) {
+	console.log(message.match);
+	bot.reply(message, "you are going to try to move " + message.match[1])
+	movePlayer(map, direction, function (err) {
+		if (err) {
+			bot.reply(message, "You can't move there.")
 		}
 	})
 })
