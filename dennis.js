@@ -23,6 +23,19 @@ var bot = controller.spawn({
 randomMapGenerator = require("./mapGenerator.js")
 mapPrinter = require("./mapPrinter.js")
 
+var mapConfig = {
+    blobbiness: 0.0,
+    width: 20,
+    height: 20,
+    numberOfRooms: 150,
+    objects: [
+        {displayChar: "g", displayName: "Goblin"},
+        {displayChar: "$", displayName: "Dolla"},
+        {displayChar: "<", displayName: "Entrance"},
+        {displayChar: ">", displayName: "Exit"},
+    ],
+};
+
 games = {}
 
 bot.startRTM(function(err, bot, payload) {
@@ -43,7 +56,7 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 					convo.say("Starting new game...")
 					games[message.user] = {
 						gameActive: true,
-						map: randomMapGenerator()
+						map: randomMapGenerator(mapConfig)
 					}
 					convo.say("Welcome to the great and terrible dungeon of Yendor! The dungeon keeper, Rodney, has imprisoned your best friend, Dennis, in the depths below.")
 					convo.say("Good luck!")
@@ -62,7 +75,7 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 		bot.reply(message, "Starting new game...")
 		games[message.user] = {
 			gameActive: true,
-			map: randomMapGenerator()
+			map: randomMapGenerator(mapConfig)
 		}
 		bot.reply(message, "Welcome to the great and terrible dungeon of Yendor! The dungeon keeper, Rodney, has imprisoned your best friend, Dennis, in the depths below.")
 		bot.reply(message, "Good luck!")

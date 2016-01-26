@@ -10,9 +10,14 @@ module.exports = function(map) {
 
 	output = "```\n"
 
-	for (var y = 0; y < 20; y++) {
-		for (var x = 0; x < 20; x++) {
-			output += map[x][y].contents + " "
+	for (var y = 0; y < map.length; y++) {
+		for (var x = 0; x < map[0].length; x++) {
+            if("displayChar" in map[x][y]) {
+                output += map[x][y].displayChar + " "
+            }
+            else {
+                output += "  ";
+            }
 		}
 		output+="\n"
 	}
