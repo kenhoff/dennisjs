@@ -8,11 +8,11 @@ module.exports = function(map) {
 	// map[0][2] == g
 	// map[2][2] == i
 
-	output = "```"
+	output = "```\n"
 
-	for (var y = 0; y < 3; y++) {
-		for (var x = 0; x < 3; x++) {
-			output += map[x][y].contents
+	for (var y = 0; y < 20; y++) {
+		for (var x = 0; x < 20; x++) {
+			output += map[x][y].contents + " "
 		}
 		output+="\n"
 	}
