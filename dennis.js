@@ -141,12 +141,17 @@ controller.hears(['look'], "direct_message", function(bot, message) {
 })
 
 controller.hears(['move (north|south|east|west)'], 'direct_message', function (bot, message) {
-	console.log(message.match);
-	bot.reply(message, "you are going to try to move " + message.match[1])
-	movePlayer(map, direction, function (err) {
-		if (err) {
-			bot.reply(message, "You can't move there.")
-		}
+	controller.storage.users.get(message.user, function(err, user_game) {
+		bot.reply(message, "you are going to try to move " + message.match[1])
+		movePlayer(user_game.map, message.match[1], function (err) {
+			if (err) {
+				bot.reply(message, "You can't move there.")
+				console.log(err);
+			}
+			else {
+				controller.storage.users.save({id: message.user, map: user_game.map, gameActive: true})
+			}
+		})
 	})
 })
 
