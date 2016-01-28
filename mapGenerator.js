@@ -162,9 +162,6 @@ function makeDoors(x, y, map, mapConfig) {
 function placeObjects(roomList, map, mapConfig) {
     var nPlaced = 0;
     var maxPlaced = mapConfig.objects.length;
-    if(maxPlaced > roomList.length) {
-        maxPlaced = roomList.length;
-    }
 
     while(nPlaced < maxPlaced) {
         var i = Math.floor(Math.random() * roomList.length);
