@@ -1,0 +1,11 @@
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+<audio id="walk" src="/Powerup4.wav"/>
+
+<script>
+	var socket = io();
+	socket.on("play_audio", function(data) {
+		console.log(data);
+		document.getElementById("walk").play()
+	})
+</script>

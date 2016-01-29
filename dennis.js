@@ -12,7 +12,10 @@ if (!process.env.SLACK_BOT_API_TOKEN) {
 	throw "process.env.SLACK_BOT_API_TOKEN not found"
 }
 
-var app = require('express')();
+var express = require('express');
+app = express()
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var redisStorage = require('botkit-storage-redis')({
 	url: process.env.REDIS_URL
 })
@@ -37,23 +40,24 @@ var mapConfig = {
 	objects: [{
 		id: "goblin",
 		displayChar: "g",
-		displayName: "Goblin"
+		displayName: "a goblin",
+		imgURL: "http://www.diabloii.net/wp-content/uploads/2012/12/PZO1114-GoblinTreasure.jpg"
 	}, {
 		id: "gold",
 		displayChar: "$",
-		displayName: "Dolla"
+		displayName: "a pile of gold coins"
 	}, {
-		id: "entrance",
+		id: "up_staircase",
 		displayChar: "<",
-		displayName: "Entrance"
+		displayName: "a staircase leading upwards"
 	}, {
-		id: "exit",
+		id: "down_staircase",
 		displayChar: ">",
-		displayName: "Exit"
+		displayName: "a staircase leading downwards"
 	}, {
 		id: "player",
 		displayChar: "p",
-		displayName: "You"
+		displayName: "you, the adventurer"
 	}],
 };
 
@@ -131,36 +135,32 @@ controller.hears(['map'], "direct_message", function(bot, message) {
 controller.hears(['look'], "direct_message", function(bot, message) {
 	controller.storage.users.get(message.user, function(err, user_game) {
 		if (user_game.gameActive == true) {
-			bot.reply(message, "looking...")
-			playerLocation = findPlayer(user_game.map)
-			bot.reply(message, "location:" + playerLocation.x + " " + playerLocation.y)
+			bot.reply(message, contentsOfRoom(user_game.map))
 		} else {
 			bot.reply(message, "you don't have a new game started! Start one with `new game`")
 		}
 	})
 })
 
-controller.hears(['move (north|south|east|west)'], 'direct_message', function (bot, message) {
-	controller.storage.users.get(message.user, function(err, user_game) {
-		bot.reply(message, "you are going to try to move " + message.match[1])
-		movePlayer(user_game.map, message.match[1], function (err) {
-			if (err) {
-				bot.reply(message, "You can't move there.")
-				console.log(err);
-			}
-			else {
-				controller.storage.users.save({id: message.user, map: user_game.map, gameActive: true})
-			}
-		})
-	})
-})
+require("./movement.js")(controller, io)
 
 controller.hears(['.*'], "direct_message", function(bot, message) {
 	bot.reply(message, "I didn't quite understand that. Type `help` to get some commands that you can use.")
 })
 
-app.get("*", function(req, res) {
-	res.sendStatus(200)
+app.use(express.static("img"))
+app.use(express.static("audio"))
+
+app.get("/game/:userID", function (req, res) {
+	res.sendFile(__dirname + "/audio.html")
 })
 
-app.listen(process.env.PORT || 3000)
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+app.get("*", function(req, res) {
+	res.redirect("https://playdennis.hoff.tech")
+})
+
+http.listen(process.env.PORT || 3000)

@@ -27,7 +27,9 @@ module.exports = function(map, direction, cb) {
 }
 
 tryToMove = function(map, x, y, cb) {
-	if (map[x][y].isRoom) {
+	if ((x < 0) || (x > map.length) || (y < 0) || (y > map[0].length)) {
+		return cb("not a room!")
+	} else if (map[x][y].isRoom) {
 		// remove player from the current room, add them to the new room
 		map[playerLocation.x][playerLocation.y] // room that the player is in
 			// find the index of the player in the objects array in the room
