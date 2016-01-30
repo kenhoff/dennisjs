@@ -207,7 +207,7 @@ io.on('connection', function(socket) {
 });
 
 app.get("*", function(req, res) {
-	res.redirect("https://playdennis.hoff.tech")
+	res.redirect("https://playtowerofdoom.hoff.tech")
 })
 
 http.listen(process.env.PORT || 3000)
