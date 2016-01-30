@@ -18,4 +18,9 @@ module.exports = function(itemString, map) {
 			}
 		}
 	}
+	if (itemString[0].match(/[aeiou]/) ) {
+		return "There isn't an " + itemString + " in the room."
+	} else {
+		return "There isn't a " + itemString + " in the room."
+	}
 }

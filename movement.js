@@ -7,7 +7,7 @@ module.exports = function(controller, io) {
 			// bot.reply(message, "you are going to try to move " + message.match[1])
 			movePlayer(user_game.map, message.match[1], function(err) {
 				if (err) {
-					bot.reply(message, "You can't move there.")
+					bot.reply(message, err)
 				} else {
 					io.emit("play_audio", {for: message.user})
 					controller.storage.users.save({

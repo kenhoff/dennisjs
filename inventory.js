@@ -15,7 +15,7 @@ module.exports = function(controller) {
 			}
 		})
 	})
-	controller.hears(["pick up (.*)", "pick up"], "direct_message", function(bot, message) {
+	controller.hears(["pick up (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
 				bot.reply(message, attemptToGet(message.match[1], user_game.map))
@@ -29,7 +29,7 @@ module.exports = function(controller) {
 			}
 		})
 	})
-	controller.hears(["drop (.*)", "drop"], "direct_message", function(bot, message) {
+	controller.hears(["drop (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
 				bot.reply(message, attemptToDrop(message.match[1], user_game.map))
@@ -59,16 +59,27 @@ function attemptToGet(itemString, map) {
 	})
 	for (var i = 0; i < thingsInRoom.length; i++) {
 		if (thingsInRoom[i].displayName.includes(itemString)) {
-			// pop off room objects list, push onto player inventory list
-			item = map[playerLocation.x][playerLocation.y].objects.splice(i, 1)[0]
-			// map[playerLocation.x][playerLocation.y].objects.splice(i, 1)
-			putInInventory(item, map)
-			return {
-				text: "You pick up " + thingsInRoom[i].displayName + " and put it in your pack."
+			if (!thingsInRoom[i].pickuppable) {
+				return {
+					text: "You can't pick up " + thingsInRoom[i].displayName + "!"
+				}
+			} else {
+				// pop off room objects list, push onto player inventory list
+				item = map[playerLocation.x][playerLocation.y].objects.splice(i, 1)[0]
+				console.log(item);
+				// map[playerLocation.x][playerLocation.y].objects.splice(i, 1)
+				putInInventory(item, map)
+				return {
+					text: "You pick up " + thingsInRoom[i].displayName + " and put it in your pack."
+				}
 			}
 		}
 	}
-	return "That item isn't in the room!"
+	if (itemString[0].match(/[aeiou]/)) {
+		return "There isn't an " + itemString + " in the room."
+	} else {
+		return "There isn't a " + itemString + " in the room."
+	}
 }
 
 function putInInventory(object, map) {
@@ -100,7 +111,11 @@ function attemptToDrop(itemString, map) {
 			}
 		}
 	}
-	return "That item isn't in your inventory!"
+	if (itemString[0].match(/[aeiou]/)) {
+		return "There isn't an " + itemString + " in your inventory."
+	} else {
+		return "There isn't a " + itemString + " in your inventory."
+	}
 }
 
 function printPlayerInventory(map) {
@@ -117,8 +132,13 @@ function printPlayerInventory(map) {
 	} else if (playerObject.inventory.length == 1) {
 		return "You have " + playerObject.inventory[0].displayName + " in your inventory."
 	} else if (playerObject.inventory.length == 2) {
-		return "You have " + playerObject.inventory[0].displayName + " and " + playerObject.inventory[0].displayName + " in your inventory."
+		return "You have " + playerObject.inventory[0].displayName + " and " + playerObject.inventory[1].displayName + " in your inventory."
 	} else {
-		return "You have " + playerObject.inventory.slice(0, playerObject.inventory.length - 1).join(", ") + " and " + playerObject.inventory[playerObject.inventory.length - 1] + " in your inventory."
+		nMinusOneObjects = playerObject.inventory.slice(0, playerObject.inventory.length - 1)
+		displayNames = []
+		for (object of nMinusOneObjects) {
+			displayNames.push(object.displayName)
+		}
+		return "You have " + displayNames.join(", ") + " and " + playerObject.inventory[playerObject.inventory.length - 1].displayName + " in your inventory."
 	}
 }

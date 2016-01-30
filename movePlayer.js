@@ -27,8 +27,8 @@ module.exports = function(map, direction, cb) {
 }
 
 tryToMove = function(map, x, y, cb) {
-	if ((x < 0) || (x > map.length) || (y < 0) || (y > map[0].length)) {
-		return cb("not a room!")
+	if ((x < 0) || (x > map.length - 1) || (y < 0) || (y > map[0].length - 1)) {
+		return cb("You bump clumsily into the wall. Not sure what you were trying to accomplish with that.")
 	} else if (map[x][y].isRoom) {
 		// remove player from the current room, add them to the new room
 		map[playerLocation.x][playerLocation.y] // room that the player is in
