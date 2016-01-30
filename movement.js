@@ -10,7 +10,6 @@ module.exports = function(controller, io) {
 			movePlayer(user_game.map, message.match[1], function(err) {
 				if (err) {
 					bot.reply(message, "You can't move there.")
-					console.log(err);
 				} else {
 					io.emit("play_audio", {for: message.user})
 					controller.storage.users.save({
@@ -20,7 +19,6 @@ module.exports = function(controller, io) {
 					})
 					playerLocation = findPlayer(user_game.map)
 					bot.reply(message, contentsOfRoom(user_game.map))
-						// display "look" text of what's in a room
 				}
 			})
 		})
