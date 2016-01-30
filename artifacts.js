@@ -50,11 +50,17 @@ availableArtifacts = [{
 	imgURL: "http://images.halloweencostumes.org/products/12276/1-1/ancient-light-up-lantern.jpg"
 }]
 
-module.exports = function(countOfArtifacts) {
-	itemList = []
-	for (var i = 0; i < countOfArtifacts; i++) {
-		index = Math.floor(Math.random() * availableArtifacts.length)
-		itemList.push(availableArtifacts.splice(index, 1)[0])
+module.exports =  {
+	getArtifactListForLevel: function(countOfArtifacts) {
+		newAvailableArtifacts = availableArtifacts.slice()
+		itemList = []
+		for (var i = 0; i < countOfArtifacts; i++) {
+			index = Math.floor(Math.random() * newAvailableArtifacts.length)
+			itemList.push(newAvailableArtifacts.splice(index, 1)[0])
+		}
+		return itemList.concat(fixedArtifacts)
+	},
+	artifactReference: function () {
+		return availableArtifacts
 	}
-	return itemList.concat(fixedArtifacts)
 }
