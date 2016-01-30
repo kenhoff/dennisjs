@@ -89,6 +89,7 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 							} else {
 								convo.say("Welcome to the great and terrible dungeon of Yendor! The dungeon keeper, Rodney, has imprisoned your best friend, Dennis, in the depths below.")
 								convo.say("Good luck!")
+								convo.say("Go to http://dennis.hoff.tech/game/" + message.user + " for audio.")
 								convo.say("_type `help` to learn about commands._")
 								convo.next()
 							}
