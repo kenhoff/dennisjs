@@ -31,7 +31,7 @@ function neighborsWithDoors(x, y, map, mapConfig) {
     if(y > 0 && Object.keys(map[x][y-1]).length > 0) {
         neighbor_coords.push({x: x, y: y-1});
     }
-    
+
     if(x < (mapConfig.width-1) && Object.keys(map[x+1][y]).length > 0) {
         neighbor_coords.push({x: x+1, y: y});
     }
@@ -53,7 +53,7 @@ function neighborCandidates(x, y, map, mapConfig) {
     if(y > 0 && Object.keys(map[x][y-1]).length == 0) {
         neighbor_coords.push({x: x, y: y-1});
     }
-    
+
     if(x < (mapConfig.width-1) && Object.keys(map[x+1][y]).length == 0) {
         neighbor_coords.push({x: x+1, y: y});
     }
@@ -69,7 +69,7 @@ function chooseGuaranteedOpenDoorIdx(candidates, x, y, map, mapConfig) {
     var defOpenIdx = null;
 
     var withNeighbors = [];
-    var withoutNeighbors = []; 
+    var withoutNeighbors = [];
 
     candidates.forEach(function(c) {
         var withDoors = neighborsWithDoors(c.x, c.y, map, mapConfig);
@@ -144,7 +144,7 @@ function makeDoors(x, y, map, mapConfig) {
         if(i == defOpenIdx) {
             continue;
         }
-        
+
         var c = candidates[i];
         if(Math.random() < mapConfig.blobbiness) {
             map[c.x][c.y].objects = [];
@@ -176,7 +176,6 @@ function markDoors(roomList, map) {
         var x = roomCoords.x;
         var y = roomCoords.y;
         var room = map[x][y];
-        console.log(roomCoords, room, map[x][y]);
         if(x > 0) {
             room.doors.west = "isRoom" in map[x-1][y];
         }

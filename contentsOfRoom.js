@@ -31,7 +31,33 @@ module.exports = function(map) {
 			string = startString + nMinusOneObjects.join(", ") + ",  and " + lastObject + endString
 			break
 	}
-	console.log(urls[0]);
+
+	// if ((x < 0) || (x > map.length) || (y < 0) || (y > map[0].length)) {
+
+
+	exits = []
+	if (playerLocation.y != 0 && ("isRoom" in map[playerLocation.x][playerLocation.y - 1])) {
+		exits.push("north")
+	}
+	if (playerLocation.y != map[0].length - 1 && ("isRoom" in map[playerLocation.x][playerLocation.y + 1])) {
+		exits.push("south")
+	}
+	if (playerLocation.x != 0 && ("isRoom" in map[playerLocation.x - 1][playerLocation.y])) {
+		exits.push("west")
+	}
+	if (playerLocation.x != map.length - 1 && ("isRoom" in map[playerLocation.x + 1][playerLocation.y])) {
+		exits.push("east")
+	}
+
+	if (exits.length == 0) {
+		exitString = "There are no exits."
+	} else if (exits.length == 1) {
+		exitString = "There is an exit to the " + exits[0] + "."
+	} else if (exits.length == 2) {
+		exitString = "There are exits to the " + exits[0] + " and " + exits[1] + "."
+	} else {
+		exitString = "There are exits to the " + exits.slice(0, exits.length - 1).join(", ") + " and " + exits[exits.length - 1] + "."
+	}
 
 	attachments = []
 
@@ -42,7 +68,7 @@ module.exports = function(map) {
 		})
 	}
 	return {
-		text: string,
+		text: string + " " + exitString,
 		attachments: attachments
 	}
 }

@@ -21,6 +21,7 @@ var redisStorage = require('botkit-storage-redis')({
 })
 var botkit = require('botkit');
 var controller = botkit.slackbot({
+	// debug: true,
 	storage: redisStorage
 });
 var bot = controller.spawn({
@@ -31,6 +32,8 @@ randomMapGenerator = require("./mapGenerator.js")
 mapPrinter = require("./mapPrinter.js")
 findPlayer = require("./findPlayer.js")
 movePlayer = require("./movePlayer.js")
+lookAtItem = require('./lookAtItem.js');
+inventory = require("./inventory.js")(controller)
 
 var mapConfig = {
 	blobbiness: 0.5,
@@ -38,31 +41,39 @@ var mapConfig = {
 	height: 10,
 	numberOfRooms: 11,
 	objects: [{
-		id: "goblin",
-		displayChar: "g",
-		displayName: "a goblin",
-		imgURL: "http://www.diabloii.net/wp-content/uploads/2012/12/PZO1114-GoblinTreasure.jpg"
+		id: "bauble",
+		displayChar: "b",
+		displayName: "a bauble",
+		description: "It's a shiny red bauble.",
+		imgURL: "http://www.christmasshopholt.co.uk/wp-content/uploads/2013/11/krebs-red-bauble.jpg"
 	}, {
-		id: "gold",
-		displayChar: "$",
-		displayName: "a pile of gold coins"
+		id: "emerald",
+		displayChar: "e",
+		displayName: "an emerald",
+		description: "It's a massive green emerald, about the size of your fist.",
+		imgURL: "http://globe-views.com/dcim/dreams/emerald/emerald-06.jpg"
 	}, {
-		id: "up_staircase",
-		displayChar: "<",
-		displayName: "a staircase leading upwards"
+		id: "skull",
+		displayChar: "s",
+		displayName: "a human skull",
+		description: "It's a human skull. Creepy!",
+		imgURL: "http://www.skullsunlimited.com/userfiles/image/category3_family_227_large.jpg"
 	}, {
-		id: "down_staircase",
-		displayChar: ">",
-		displayName: "a staircase leading downwards"
+		id: "altar",
+		displayChar: "a",
+		displayName: "a stone altar",
+		description: "It's an ominous stone altar. It looks like you can put things on it."
 	}, {
 		id: "player",
 		displayChar: "p",
-		displayName: "you, the adventurer"
+		displayName: "you, the adventurer",
+		inventory: []
 	}],
 };
 
 bot.startRTM(function(err, bot, payload) {
 	if (err) {
+		console.log(err);
 		throw new Error('Could not connect to Slack');
 	} else {
 		console.log("connected to slack");
@@ -78,7 +89,7 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 					pattern: bot.utterances.yes,
 					callback: function(response, convo) {
 						convo.say("Starting new game...")
-						map = randomMapGenerator(mapConfig)
+						map = makeNewGame()
 						controller.storage.users.save({
 							id: message.user,
 							gameActive: true,
@@ -105,7 +116,7 @@ controller.hears(["new game"], "direct_message", function(bot, message) {
 			})
 		} else {
 			bot.reply(message, "Starting new game...")
-			map = randomMapGenerator(mapConfig)
+			map = makeNewGame()
 			controller.storage.users.save({
 				id: message.user,
 				gameActive: true,
@@ -133,15 +144,32 @@ controller.hears(['map'], "direct_message", function(bot, message) {
 	})
 })
 
-controller.hears(['look'], "direct_message", function(bot, message) {
+controller.hears(["look (.*)|look"], "direct_message", function(bot, message) {
 	controller.storage.users.get(message.user, function(err, user_game) {
 		if (user_game.gameActive == true) {
-			bot.reply(message, contentsOfRoom(user_game.map))
+			if (message.match[1]) {
+				bot.reply(message, lookAtItem(message.match[1], user_game.map))
+			} else {
+				bot.reply(message, contentsOfRoom(user_game.map))
+			}
 		} else {
 			bot.reply(message, "you don't have a new game started! Start one with `new game`")
 		}
 	})
 })
+
+makeNewGame = function() {
+	map = null
+	while (!map) {
+		try {
+			console.log("trying to make map");
+			map = randomMapGenerator(mapConfig)
+		} catch (e) {
+			console.log("problem generating map");
+		}
+	}
+	return map
+}
 
 require("./movement.js")(controller, io)
 
@@ -152,12 +180,12 @@ controller.hears(['.*'], "direct_message", function(bot, message) {
 app.use(express.static("img"))
 app.use(express.static("audio"))
 
-app.get("/game/:userID", function (req, res) {
+app.get("/game/:userID", function(req, res) {
 	res.sendFile(__dirname + "/audio.html")
 })
 
-io.on('connection', function(socket){
-  console.log('a user connected');
+io.on('connection', function(socket) {
+	console.log('a user connected');
 });
 
 app.get("*", function(req, res) {

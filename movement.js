@@ -1,8 +1,6 @@
 contentsOfRoom = require("./contentsOfRoom.js")
 findPlayer = require("./findPlayer.js")
 
-
-
 module.exports = function(controller, io) {
 	controller.hears(['move (north|south|east|west)'], 'direct_message', function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
