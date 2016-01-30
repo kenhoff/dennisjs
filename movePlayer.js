@@ -43,6 +43,6 @@ tryToMove = function(map, x, y, cb) {
 			}
 		}
 	} else {
-		cb("not a room!")
+		cb("You bump clumsily into the wall. Not sure what you were trying to accomplish with that.")
 	}
 }

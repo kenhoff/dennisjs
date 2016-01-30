@@ -15,7 +15,7 @@ module.exports = function(controller) {
 			}
 		})
 	})
-	controller.hears(["pick up (.*)"], "direct_message", function(bot, message) {
+	controller.hears(["pick up (.*)", "take (.*)", "grab (.*)", "get (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
 				bot.reply(message, attemptToGet(message.match[1], user_game.map))
@@ -32,6 +32,7 @@ module.exports = function(controller) {
 	controller.hears(["drop (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
+				console.log(message.match[1]);
 				bot.reply(message, attemptToDrop(message.match[1], user_game.map))
 				controller.storage.users.save({
 					id: message.user,

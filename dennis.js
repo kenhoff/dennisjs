@@ -66,7 +66,8 @@ var mapConfig = {
 		displayChar: "a",
 		displayName: "a stone altar",
 		description: "It's an ominous stone altar. It looks like you can put things on it.",
-		pickuppable: false
+		pickuppable: false,
+		inventory: []
 	}, {
 		id: "player",
 		displayChar: "p",
@@ -182,8 +183,9 @@ tryToMakeMap = function() {
 }
 
 require("./movement.js")(controller, io)
+require("./placeOnAltar.js")(controller, io)
 
-commands = ["new game", "map", "look", "look <item>", "inventory", "pick up <item", "drop <item>"]
+commands = ["new game", "look", "look <item>", "inventory", "pick up <item", "drop <item>"]
 for (var i = 0; i < commands.length; i++) {
 	commands[i] = "`" + commands[i] + "`"
 }

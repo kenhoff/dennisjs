@@ -13,4 +13,6 @@ module.exports = function(map) {
 			}
 		}
 	}
+	console.log("wait a minute...couldn't find player?");
+	console.log(map);
 }
