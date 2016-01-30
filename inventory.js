@@ -8,7 +8,9 @@ module.exports = function(controller) {
 				controller.storage.users.save({
 					id: message.user,
 					map: user_game.map,
-					gameActive: true
+					gameActive: true,
+					ritual: user_game.ritual,
+					ritual_progress: user_game.ritual_progress
 				})
 			} else {
 				bot.reply(message, "you don't have a new game started! Start one with `new game`")
@@ -18,11 +20,13 @@ module.exports = function(controller) {
 	controller.hears(["pick up (.*)", "take (.*)", "grab (.*)", "get (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
-				bot.reply(message, attemptToGet(message.match[1], user_game.map))
+				bot.reply(message, attemptToGet(message.match[1], user_game.map, user_game.ritual_progress))
 				controller.storage.users.save({
 					id: message.user,
 					map: user_game.map,
-					gameActive: true
+					gameActive: true,
+					ritual: user_game.ritual,
+					ritual_progress: user_game.ritual_progress
 				})
 			} else {
 				bot.reply(message, "you don't have a new game started! Start one with `new game`")
@@ -33,11 +37,13 @@ module.exports = function(controller) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
 				console.log(message.match[1]);
-				bot.reply(message, attemptToDrop(message.match[1], user_game.map))
+				bot.reply(message, attemptToDrop(message.match[1], user_game.map, user_game.ritual_progress))
 				controller.storage.users.save({
 					id: message.user,
 					map: user_game.map,
-					gameActive: true
+					gameActive: true,
+					ritual: user_game.ritual,
+					ritual_progress: user_game.ritual_progress
 				})
 			} else {
 				bot.reply(message, "you don't have a new game started! Start one with `new game`")
@@ -47,7 +53,7 @@ module.exports = function(controller) {
 	})
 }
 
-function attemptToGet(itemString, map) {
+function attemptToGet(itemString, map, ritual_progress) {
 	playerLocation = findPlayer(map)
 	playerObject = null
 	for (object of map[playerLocation.x][playerLocation.y].objects) {
@@ -78,8 +84,12 @@ function attemptToGet(itemString, map) {
 				if (thingsInRoom[i].inventory[j].displayName.includes(itemString)) {
 					item = thingsInRoom[i].inventory.splice(j, 1)[0]
 					putInInventory(item, map)
+					if (ritual_progress.length > 0) {
+						fizzleText = "\nYou hear a fizzling sound, and the remaining items on the altar stop glowing."
+					}
+					ritual_progress.length = 0
 					return {
-						text: "You pick " + item.displayName + " up off the altar and place it in your pack."
+						text: "You pick " + item.displayName + " up off the altar and place it in your pack." + fizzleText
 					}
 				}
 			}

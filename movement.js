@@ -15,7 +15,9 @@ module.exports = function(controller, io) {
 					controller.storage.users.save({
 						id: message.user,
 						map: user_game.map,
-						gameActive: true
+						gameActive: true,
+						ritual: user_game.ritual,
+						ritual_progress: user_game.ritual_progress
 					})
 					bot.reply(message, contentsOfRoom(user_game.map))
 				}

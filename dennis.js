@@ -39,48 +39,9 @@ findPlayer = require("./findPlayer.js")
 movePlayer = require("./movePlayer.js")
 lookAtItem = require('./lookAtItem.js');
 inventory = require("./inventory.js")(controller)
+pickRitualObjects = require("./pickRitualObjects.js")
 
-var mapConfig = {
-	blobbiness: 0.5,
-	width: 10,
-	height: 10,
-	numberOfRooms: 11,
-	objects: [{
-		id: "bauble",
-		displayChar: "b",
-		displayName: "a bauble",
-		description: "It's a shiny red bauble.",
-		imgURL: "http://www.christmasshopholt.co.uk/wp-content/uploads/2013/11/krebs-red-bauble.jpg",
-		pickuppable: true
-	}, {
-		id: "emerald",
-		displayChar: "e",
-		displayName: "an emerald",
-		description: "It's a massive green emerald, about the size of your fist.",
-		// imgURL: "http://globe-views.com/dcim/dreams/emerald/emerald-06.jpg",
-		pickuppable: true
-	}, {
-		id: "skull",
-		displayChar: "s",
-		displayName: "a human skull",
-		description: "It's a human skull. Creepy!",
-		imgURL: "http://www.skullsunlimited.com/userfiles/image/category3_family_227_large.jpg",
-		pickuppable: true
-	}, {
-		id: "altar",
-		displayChar: "a",
-		displayName: "a stone altar",
-		description: "It's an ominous stone altar. It looks like you can put things on it.",
-		pickuppable: false,
-		inventory: []
-	}, {
-		id: "player",
-		displayChar: "p",
-		displayName: "you, the adventurer",
-		pickuppable: false,
-		inventory: []
-	}],
-};
+// ritual = ["skull", "emerald", "bauble"]
 
 bot.startRTM(function(err, bot, payload) {
 	if (err) {
@@ -123,6 +84,17 @@ controller.hears(["look (.*)|look"], "direct_message", function(bot, message) {
 
 makeNewGame = function(bot, message) {
 
+	var mapConfig = {
+		blobbiness: 0.5,
+		width: 10,
+		height: 10,
+		numberOfRooms: 11, // minus one
+		objects: require("./artifacts.js")(5),
+	};
+
+	ritual = pickRitualObjects(mapConfig.objects, 3)
+	console.log(ritual);
+
 	newGameString = "This is the part where we explain about the plot of the game! The Ur-grue imprisoned at the top of the tower is dangerously close to breaking free, and you, the brave adventurer, must perform the ritual of vanquishing to defeat the monster, once and for all!\nEach level, you must perform a ritual to open the passage to the next level.\nThis is the line where we tell you what page to open to get some audio.\n_type `help` to learn about commands._\n_type `look` to get started._"
 
 	// convo.say("Go to http://dennis.hoff.tech/game/" + message.user + " for audio.")
@@ -135,11 +107,13 @@ makeNewGame = function(bot, message) {
 					pattern: bot.utterances.yes,
 					callback: function(response, convo) {
 						convo.say("Starting new game...")
-						map = tryToMakeMap()
+						map = tryToMakeMap(mapConfig)
 						controller.storage.users.save({
 							id: message.user,
 							gameActive: true,
-							map: map
+							map: map,
+							ritual: ritual,
+							ritual_progress: []
 						}, function(err) {
 							if (err) {
 								convo.say("error starting game!")
@@ -158,11 +132,13 @@ makeNewGame = function(bot, message) {
 			})
 		} else {
 			bot.reply(message, "Starting new game...")
-			map = tryToMakeMap()
+			map = tryToMakeMap(mapConfig)
 			controller.storage.users.save({
 				id: message.user,
 				gameActive: true,
-				map: map
+				map: map,
+				ritual: ritual,
+				ritual_progress: []
 			}, function(err) {
 				if (err) {
 					bot.reply(message, "error starting game!")
@@ -174,13 +150,14 @@ makeNewGame = function(bot, message) {
 	})
 }
 
-tryToMakeMap = function() {
+tryToMakeMap = function(mapConfig) {
 	map = null
 	while (!map) {
 		try {
 			console.log("Generating map...");
 			map = randomMapGenerator(mapConfig)
 		} catch (e) {
+			console.log(e);
 			console.log("Error with map generation.");
 		}
 	}
@@ -190,7 +167,7 @@ tryToMakeMap = function() {
 require("./movement.js")(controller, io)
 require("./placeOnAltar.js")(controller, io)
 
-commands = ["new game", "look", "look <item>", "inventory", "pick up <item", "drop <item>"]
+commands = ["new game", "look", "look <item>", "inventory", "pick up <item", "drop <item>", "place <item> on altar"]
 for (var i = 0; i < commands.length; i++) {
 	commands[i] = "`" + commands[i] + "`"
 }

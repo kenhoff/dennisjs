@@ -17,6 +17,12 @@ module.exports = function(map) {
 				urls.push(thingsInRoom[0].imgURL)
 			}
 			break
+		case 2:
+			string = startString + thingsInRoom[0].displayName + " and " + thingsInRoom[1].displayName + endString
+			if ("imgURL" in thingsInRoom[0]) {
+				urls.push(thingsInRoom[0].imgURL)
+			}
+			break
 		default:
 			displayNamesOfThingsInRoom = []
 			for (thing of thingsInRoom) {
