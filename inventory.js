@@ -67,15 +67,25 @@ function attemptToGet(itemString, map) {
 			} else {
 				// pop off room objects list, push onto player inventory list
 				item = map[playerLocation.x][playerLocation.y].objects.splice(i, 1)[0]
-				console.log(item);
-				// map[playerLocation.x][playerLocation.y].objects.splice(i, 1)
 				putInInventory(item, map)
 				return {
 					text: "You pick up " + thingsInRoom[i].displayName + " and put it in your pack."
 				}
 			}
 		}
+		if (thingsInRoom[i].id == "altar") {
+			for (var j = 0; j < thingsInRoom[i].inventory.length; j++) {
+				if (thingsInRoom[i].inventory[j].displayName.includes(itemString)) {
+					item = thingsInRoom[i].inventory.splice(j, 1)[0]
+					putInInventory(item, map)
+					return {
+						text: "You pick " + item.displayName + " up off the altar and place it in your pack."
+					}
+				}
+			}
+		}
 	}
+
 	if (itemString[0].match(/[aeiou]/)) {
 		return "There isn't an " + itemString + " in the room."
 	} else {
