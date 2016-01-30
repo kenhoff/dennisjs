@@ -199,6 +199,12 @@ module.exports = function(mapConfig) {
     var start = randomStart(mapConfig.width, mapConfig.height);
     var nRooms = 1;
 
+    map[start.x][start.y].objects = [];
+    map[start.x][start.y].x = start.x;
+    map[start.x][start.y].y = start.y;
+    map[start.x][start.y].doors = {};
+    map[start.x][start.y].isRoom = true;
+
     var roomStack = [start];
     var roomList = [];
 
