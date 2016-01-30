@@ -32,8 +32,6 @@ var seedrandom = require('seedrandom');
 var seed = "dennis" + String(Math.floor(Math.random() * 1e20))
 seedrandom(seed, {global: true});
 console.log("Random seed is:", seed);
-console.log(Math.random());
-console.log(Math.random());
 
 randomMapGenerator = require("./mapGenerator.js")
 mapPrinter = require("./mapPrinter.js")
