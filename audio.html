@@ -12,6 +12,16 @@
 <audio id="level4music - loop" src="/Level 4 - Stem 1 (Looping).ogg" loop/>
 <audio id="level5music - loop" src="/Level 5 - Stem 1 (Looping).ogg" loop/>
 
+<audio id="footsteps" src="/Footsteps.ogg" />
+<audio id="correct1" src="/Correct Item 1.ogg" />
+<audio id="correct2" src="/Correct Item 2.ogg" />
+<audio id="correct3" src="/Correct Item 3.ogg" />
+<audio id="correct4" src="/Correct Item 4.ogg" />
+<audio id="correct5" src="/Correct Item 5.ogg" />
+<audio id="complete" src="/Level Complete.ogg" />
+<audio id="fizzle" src="/Wrong Item Fizzle.ogg" />
+
+
 
 <script>
 	userID = window.location.pathname.split('/')[2]
@@ -25,6 +35,15 @@
 	level2MusicLoop = document.getElementById('level3music - loop')
 	level3MusicLoop = document.getElementById('level4music - loop')
 	level4MusicLoop = document.getElementById('level5music - loop')
+
+	footsteps = document.getElementById('footsteps')
+	correct1 = document.getElementById('correct1')
+	correct2 = document.getElementById('correct2')
+	correct3 = document.getElementById('correct3')
+	correct4 = document.getElementById('correct4')
+	correct5 = document.getElementById('correct5')
+	complete = document.getElementById('complete')
+	fizzle = document.getElementById('fizzle')
 
 	level0LoopTimeout = setTimeout(function() {
 		console.log("playing level 0 loop");
@@ -70,11 +89,29 @@
 					})
 					level4MusicLoop.play()
 				}
+			} else if ("effect" in data) {
+				if (data.effect == "footsteps") {
+					footsteps.play()
+				} else if (data.effect == "correct1") {
+					correct1.play()
+				} else if (data.effect == "correct2") {
+					correct2.play()
+				} else if (data.effect == "correct3") {
+					correct3.play()
+				} else if (data.effect == "correct4") {
+					correct4.play()
+				} else if (data.effect == "correct5") {
+					correct5.play()
+				} else if (data.effect == "complete") {
+					complete.play()
+				} else if (data.effect == "fizzle") {
+					fizzle.play()
+				}
 			}
 		}
 	})
 
-	function crossfade(audioFadeOut, audioFadeIn) {
-
-	}
+	// function crossfade(audioFadeOut, audioFadeIn) {
+	//
+	// }
 </script>

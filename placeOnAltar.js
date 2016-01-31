@@ -2,7 +2,7 @@ var makeNewGame = require('./makeNewGame.js');
 var contentsOfRoom = require('./contentsOfRoom.js');
 
 module.exports = function(controller, io) {
-	controller.hears(["(place|put|drop) (.*) on altar", "(place|put|drop) (.*) in altar", "(place|put|drop) (.*) altar", "(place|put) (.*)"], "direct_message", function(bot, message) {
+	controller.hears(["(place|put|drop) (.*) on altar", "(place|put|drop) (.*) in altar", "(place|put|drop) (.*) altar", "(place|put|drop) (.*) on alter", "(place|put|drop) (.*) in alter", "(place|put|drop) (.*) alter", "(place|put) (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			tryToPlaceObjectOnAltar(message.match[2], user_game.map, user_game.ritual, user_game.ritual_progress, function(responseString, completedRitual, ritualIncreased) {
 				if (completedRitual) {
@@ -41,6 +41,10 @@ module.exports = function(controller, io) {
 							convo.say("The glowing items on the altar increase in intensity, obscuring your vision!")
 							io.emit("play_audio", {
 								for: message.user,
+								effect: "complete"
+							})
+							io.emit("play_audio", {
+								for: message.user,
 								level: user_game.level + 1
 							})
 							convo.say("When they fade, you find yourself in a completely different room.")
@@ -56,13 +60,23 @@ module.exports = function(controller, io) {
 					}
 				} else {
 					bot.startPrivateConversation(message, function(err, convo) {
+						console.log(ritualIncreased);
 						convo.say(responseString)
 						if (ritualIncreased > 0) {
 							// if the ritual increases, ritualIncreased will be > 0.
 							convo.say("It begins to glow.")
+							io.emit("play_audio", {
+								for: message.user,
+								effect: "correct" + ritualIncreased
+							})
 						} else if (ritualIncreased < 0) {
 							// if the ritual fizzles, ritualIncreased will be -1.
-							convo.say("You hear a soft fizzling sound, and all items on the altar stop glowing.")
+							convo.say("All items on the altar stop glowing.")
+							io.emit("play_audio", {
+								for: message.user,
+								effect: "fizzle"
+							})
+
 						} else {
 							// if the ritual is unchanged, ritualIncreased will be 0.
 							convo.say("Nothing happened.")
@@ -116,7 +130,7 @@ function tryToPlaceObjectOnAltar(objectString, map, ritual, ritual_progress, cb)
 						if (ritual.length == ritual_progress.length) {
 							return cb(placementString, true, 1)
 						} else {
-							return cb(placementString, false, 1)
+							return cb(placementString, false, ritual_progress.length)
 						}
 						// increase power of ritual
 						// check if ritual is complete - if so, move to next level

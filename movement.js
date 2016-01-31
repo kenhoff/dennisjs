@@ -10,7 +10,8 @@ module.exports = function(controller, io) {
 					bot.reply(message, err)
 				} else {
 					io.emit("play_audio", {
-						for: message.user
+						for: message.user,
+						effect: "footsteps"
 					})
 					controller.storage.users.save({
 						id: message.user,
