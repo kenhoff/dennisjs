@@ -109,6 +109,30 @@ availableArtifacts = [{
 	imgURL: "http://towerofdoom.hoff.tech/items_heart_floor3.png",
 	pickuppable: true,
 	minimumLevel: 2
+}, {
+	id: "sleep",
+	displayChar: "s",
+	displayName: "another night's sleep",
+	description: "What's one more, after all this?",
+	imgURL: "http://towerofdoom.hoff.tech/items_sleep_floor3.png",
+	pickuppable: true,
+	minimumLevel: 2
+}, {
+	id: "time",
+	displayChar: "t",
+	displayName: "all your time",
+	description: "It just keeps pouring.",
+	imgURL: "http://towerofdoom.hoff.tech/items_time_floor3.png",
+	pickuppable: true,
+	minimumLevel: 2
+}, {
+	id: "summer",
+	displayChar: "s",
+	displayName: "one warm summer",
+	description: "Summer flavor text.",
+	imgURL: "http://towerofdoom.hoff.tech/items_summer_floor2.png",
+	pickuppable: true,
+	minimumLevel: 1
 }]
 
 module.exports = {
