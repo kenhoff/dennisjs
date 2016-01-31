@@ -54,7 +54,7 @@ bot.startRTM(function(err, bot, payload) {
 	}
 });
 
-controller.on('user_channel_join', function(bot, message) {
+controller.on('team_join', function(bot, message) {
 	console.log(message);
 	bot.startPrivateConversation(message, function(err, convo) {
 		convo.say("hello!")
