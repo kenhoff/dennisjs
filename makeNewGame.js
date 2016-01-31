@@ -1,8 +1,8 @@
 levelParams = [{
 	roomCount: 3,
 	ritualItemCount: 1,
-	totalItemCount: 2,
-	entranceText: "You've entered the first floor of Ur-Grue's tower."
+	totalItemCount: 1,
+	entranceText: "This tower is the prison of Ur-Grue, the legendary dream eater and memory wraith."
 }, {
 	roomCount: 4,
 	ritualItemCount: 2,
@@ -12,18 +12,28 @@ levelParams = [{
 	roomCount: 5,
 	ritualItemCount: 3,
 	totalItemCount: 5,
-	entranceText: "There are like, some serious Ur-Grue vibes going on in the third floor of the tower."
+	entranceText: "This is the third floor of Ur-Grue's tower. Your memories are starting to feel a little hazy at this point."
+}, {
+	roomCount: 6,
+	ritualItemCount: 4,
+	totalItemCount: 5,
+	entranceText: "This is the fourth and penultimate floor of Ur-Grue's tower. You're not really sure what's real anymore."
+}, {
+	roomCount: 7,
+	ritualItemCount: 5,
+	totalItemCount: 5,
+	entranceText: "You've reached the final floor of Ur-Grue's tower. Vanquish him before it's too late!"
 }]
 
 module.exports = {
 	listenForNewGame: function(controller, bot, message) {
-		newGameString = "This is the part where we explain about the plot of the game! The Ur-Grue imprisoned at the top of the tower is dangerously close to breaking free, and you, the brave adventurer, must perform the ritual of vanquishing to defeat the monster, once and for all!\nEach level, you must perform a ritual to open the passage to the next level.\nThis is the line where we tell you what page to open to get some audio.\n_type `help` to learn about commands._\n_type `look` to get started._"
+		newGameString = "_type `help` to learn about commands._"
 			// convo.say("Go to http://dennis.hoff.tech/game/" + message.user + " for audio.")
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
 				bot.startPrivateConversation(message, function(err, convo) {
-					convo.say("you already have a game started!")
-					convo.ask("would you like to start a new one?", [{
+					convo.say("You already have a game started!")
+					convo.ask("Would you like to start a new one?", [{
 						pattern: bot.utterances.yes,
 						callback: function(response, convo) {
 							this.createLevel(0, function(game_data) {
@@ -34,8 +44,9 @@ module.exports = {
 										convo.say("error starting game!")
 									} else {
 										convo.say(newGameString)
+										convo.say(levelParams[0].entranceText)
+											// put stuff about audio here
 										convo.say(contentsOfRoom(game_data.map))
-
 										convo.next()
 									}
 								})
@@ -58,6 +69,8 @@ module.exports = {
 							bot.reply(message, "error starting game!")
 						} else {
 							bot.reply(message, newGameString)
+							bot.reply(message, levelParams[0].entranceText)
+								// put stuff about audio here
 							bot.reply(message, contentsOfRoom(game_data.map))
 
 						}

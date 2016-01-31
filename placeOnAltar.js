@@ -8,13 +8,33 @@ module.exports = function(controller, io) {
 				bot.reply(message, responseString)
 				if (completedRitual) {
 					// do stuff
-					makeNewGame.createLevel(user_game.level + 1, function (game_data) {
-						game_data.id = message.user
-						game_data.gameActive = true
-						controller.storage.users.save(game_data)
-						bot.reply(message, game_data.entranceText)
-						bot.reply(message, contentsOfRoom(game_data.map))
-					})
+					if (user_game.level == 4) {
+						bot.startPrivateConversation(message, function (err, convo) {
+							controller.storage.users.save({
+								id: message.user,
+								map: user_game.map,
+								gameActive: false,
+								ritual: user_game.ritual,
+								ritual_progress: user_game.ritual_progress,
+								level: user_game.level
+							})
+							convo.say("The Ur-Grue is vanquished.")
+							convo.say("You are victorious!")
+							convo.say("For now.")
+							convo.say("")
+							convo.say("The _Tower Of Doom_ is an experimental game created by Bananacat Studios for Global Game Jam 2016.")
+							convo.say("Bananacat Studios is composed of Kacy Corlett, Joshua Du Chene, and Ken Hoff.")
+							convo.say("Thanks for playing! Excelsior!")
+						})
+					} else {
+						makeNewGame.createLevel(user_game.level + 1, function(game_data) {
+							game_data.id = message.user
+							game_data.gameActive = true
+							controller.storage.users.save(game_data)
+							bot.reply(message, game_data.entranceText)
+							bot.reply(message, contentsOfRoom(game_data.map))
+						})
+					}
 				} else {
 					controller.storage.users.save({
 						id: message.user,

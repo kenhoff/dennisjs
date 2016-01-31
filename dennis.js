@@ -55,7 +55,6 @@ controller.on('user_channel_join', function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
 		convo.say("Welcome to the Tower Of Doom! Muhahaha.....")
 		convo.say("The Tower Of Doom is a text-based adventure game.")
-			// put bit about music here?
 		convo.say("type `help` to get started.")
 	})
 })
@@ -110,6 +109,16 @@ for (var i = 0; i < commands.length; i++) {
 controller.hears(["help"], "direct_message", function(bot, message) {
 	bot.reply(message, "Try some of these commands:\n" + commands.join("\n"))
 })
+controller.hears(["credits"], "direct_message", function(bot, message) {
+	bot.startPrivateConversation(message, function(err, convo) {
+		convo.say("The _Tower Of Doom_ is an experimental game created by Bananacat Studios for Global Game Jam 2016.")
+		convo.say("Bananacat Studios is composed of Kacy Corlett, Joshua Du Chene, and Ken Hoff.")
+		convo.say("Thanks for playing! Excelsior!")
+	})
+})
+
+
+
 
 controller.hears(['.*'], "direct_message", function(bot, message) {
 	bot.reply(message, "I didn't quite understand that. Type `help` to get some commands that you can use.")

@@ -40,7 +40,7 @@ availableArtifacts = [{
 }, {
 	id: "eyes",
 	displayChar: "e",
-	displayName: "mom's eyes",
+	displayName: "a pair of mom's eyes",
 	description: "You look just like your father, except for--",
 	imgURL: "http://towerofdoom.hoff.tech/items_momeyes_floor3.png",
 	pickuppable: true,
@@ -48,50 +48,10 @@ availableArtifacts = [{
 }, {
 	id: "thoughts",
 	displayChar: "t",
-	displayName: "memories of someone else",
+	displayName: "a memory of someone else",
 	description: "You used to like them. secretly, you hope they still think of you.",
 	imgURL: "http://towerofdoom.hoff.tech/items_thoughts_floor3.png",
 	pickuppable: true,
-	minimumLevel: 2
-}, {
-	id: "bauble",
-	displayChar: "b",
-	displayName: "a bauble",
-	description: "It's a shiny red bauble.",
-	imgURL: "http://www.christmasshopholt.co.uk/wp-content/uploads/2013/11/krebs-red-bauble.jpg",
-	pickuppable: true,
-	minimumLevel: 0
-}, {
-	id: "emerald",
-	displayChar: "e",
-	displayName: "an emerald",
-	description: "It's a massive green emerald, about the size of your fist.",
-	imgURL: "http://inspiritcrystals.com/wp-content/uploads/2013/11/2487gemfields-emerald-in-teardrop-cut.jpg",
-	pickuppable: true,
-	minimumLevel: 0
-}, {
-	id: "skull",
-	displayChar: "s",
-	displayName: "a human skull",
-	description: "It's a human skull. Creepy!",
-	imgURL: "http://www.skullsunlimited.com/userfiles/image/category3_family_227_large.jpg",
-	pickuppable: true,
-	minimumLevel: 1
-}, {
-	id: "elvishsword",
-	displayChar: "s",
-	displayName: "an elvish sword",
-	description: "It's a beautiful sword of elvish make.",
-	pickuppable: true,
-	imgURL: "http://vignette3.wikia.nocookie.net/lotr/images/b/b6/Orcrist_1.JPG/revision/latest?cb=20150509115035",
-	minimumLevel: 1
-}, {
-	id: "lantern",
-	displayChar: "l",
-	displayName: "a lantern",
-	description: "It's an old brass lantern.",
-	pickuppable: true,
-	imgURL: "http://images.halloweencostumes.org/products/12276/1-1/ancient-light-up-lantern.jpg",
 	minimumLevel: 2
 }]
 
