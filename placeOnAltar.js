@@ -3,15 +3,25 @@ var makeNewGame = require('./makeNewGame.js');
 module.exports = function(controller, io) {
 	controller.hears(["(place|put|drop) (.*) on altar"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
-			tryToPlaceObjectOnAltar(message.match[2], user_game.map, user_game.ritual, user_game.ritual_progress, function(responseString) {
+			tryToPlaceObjectOnAltar(message.match[2], user_game.map, user_game.ritual, user_game.ritual_progress, function(responseString, completedRitual) {
 				bot.reply(message, responseString)
-			})
-			controller.storage.users.save({
-				id: message.user,
-				map: user_game.map,
-				gameActive: true,
-				ritual: user_game.ritual,
-				ritual_progress: user_game.ritual_progress
+				if (completedRitual) {
+					// do stuff
+					makeNewGame.createLevel(user_game.level + 1, function (game_data) {
+						game_data.id = message.user
+						game_data.gameActive = true
+						controller.storage.users.save(game_data)
+					})
+				} else {
+					controller.storage.users.save({
+						id: message.user,
+						map: user_game.map,
+						gameActive: true,
+						ritual: user_game.ritual,
+						ritual_progress: user_game.ritual_progress,
+						level: user_game.level
+					})
+				}
 			})
 		})
 	})
@@ -40,19 +50,19 @@ function tryToPlaceObjectOnAltar(objectString, map, ritual, ritual_progress, cb)
 					if (ritual[lengthOfRitualProgress - 1] != ritual_progress[lengthOfRitualProgress - 1]) {
 						// fizzle
 						ritual_progress.length = 0
-						return cb(firstString += "\nYou hear a loud fizzling sound, and the items on the altar stop glowing.")
+						return cb(firstString += "\nYou hear a loud fizzling sound, and the items on the altar stop glowing.", false)
 					} else {
 						if (ritual.length == ritual_progress.length) {
-							return cb(firstString += "\nIt glows with power.\nPtchooooo! The ritual is complete! You have been teleported to the next level.")
+							return cb(firstString += "\nIt glows with power.\nPtchooooo! The ritual is complete! You have been teleported to the next level.", true)
 						} else {
-							return cb(firstString += "\nIt glows with power.")
+							return cb(firstString += "\nIt glows with power.", false)
 						}
 						// increase power of ritual
 						// check if ritual is complete - if so, move to next level
 					}
 				}
 			}
-			return cb("There isn't an altar in the room.")
+			return cb("There isn't an altar in the room.", false)
 		}
 	}
 

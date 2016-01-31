@@ -55,7 +55,7 @@ bot.startRTM(function(err, bot, payload) {
 });
 
 controller.hears(["new game"], "direct_message", function(bot, message) {
-	makeNewGame(controller, bot, message)
+	makeNewGame.listenForNewGame(controller, bot, message)
 })
 
 if (process.env.NODE_ENV != "production") {

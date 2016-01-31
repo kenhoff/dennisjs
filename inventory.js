@@ -10,7 +10,8 @@ module.exports = function(controller) {
 					map: user_game.map,
 					gameActive: true,
 					ritual: user_game.ritual,
-					ritual_progress: user_game.ritual_progress
+					ritual_progress: user_game.ritual_progress,
+					level: user_game.level
 				})
 			} else {
 				bot.reply(message, "you don't have a new game started! Start one with `new game`")
@@ -26,7 +27,8 @@ module.exports = function(controller) {
 					map: user_game.map,
 					gameActive: true,
 					ritual: user_game.ritual,
-					ritual_progress: user_game.ritual_progress
+					ritual_progress: user_game.ritual_progress,
+					level: user_game.level
 				})
 			} else {
 				bot.reply(message, "you don't have a new game started! Start one with `new game`")
@@ -43,7 +45,8 @@ module.exports = function(controller) {
 					map: user_game.map,
 					gameActive: true,
 					ritual: user_game.ritual,
-					ritual_progress: user_game.ritual_progress
+					ritual_progress: user_game.ritual_progress,
+					level: user_game.level
 				})
 			} else {
 				bot.reply(message, "you don't have a new game started! Start one with `new game`")
@@ -86,6 +89,8 @@ function attemptToGet(itemString, map, ritual_progress) {
 					putInInventory(item, map)
 					if (ritual_progress.length > 0) {
 						fizzleText = "\nYou hear a fizzling sound, and the remaining items on the altar stop glowing."
+					} else {
+						fizzleText = ""
 					}
 					ritual_progress.length = 0
 					return {

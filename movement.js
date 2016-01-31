@@ -17,7 +17,8 @@ module.exports = function(controller, io) {
 						map: user_game.map,
 						gameActive: true,
 						ritual: user_game.ritual,
-						ritual_progress: user_game.ritual_progress
+						ritual_progress: user_game.ritual_progress,
+						level: user_game.level
 					})
 					bot.reply(message, contentsOfRoom(user_game.map))
 				}
