@@ -54,6 +54,14 @@ bot.startRTM(function(err, bot, payload) {
 	}
 });
 
+controller.on('user_channel_join', function(bot, message) {
+	console.log(message);
+	bot.startPrivateConversation(message, function(err, convo) {
+		convo.say("hello!")
+	})
+});
+
+
 controller.hears(["new game"], "direct_message", function(bot, message) {
 	makeNewGame.listenForNewGame(controller, bot, message)
 })

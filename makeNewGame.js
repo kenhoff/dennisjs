@@ -15,11 +15,9 @@ levelParams = [{
 	entranceText: "There are like, some serious Ur-Grue vibes going on in the third floor of the tower."
 }]
 
-
-
 module.exports = {
 	listenForNewGame: function(controller, bot, message) {
-		newGameString = "This is the part where we explain about the plot of the game! The Ur-grue imprisoned at the top of the tower is dangerously close to breaking free, and you, the brave adventurer, must perform the ritual of vanquishing to defeat the monster, once and for all!\nEach level, you must perform a ritual to open the passage to the next level.\nThis is the line where we tell you what page to open to get some audio.\n_type `help` to learn about commands._\n_type `look` to get started._"
+		newGameString = "This is the part where we explain about the plot of the game! The Ur-Grue imprisoned at the top of the tower is dangerously close to breaking free, and you, the brave adventurer, must perform the ritual of vanquishing to defeat the monster, once and for all!\nEach level, you must perform a ritual to open the passage to the next level.\nThis is the line where we tell you what page to open to get some audio.\n_type `help` to learn about commands._\n_type `look` to get started._"
 			// convo.say("Go to http://dennis.hoff.tech/game/" + message.user + " for audio.")
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
@@ -105,7 +103,6 @@ module.exports = {
 		})
 	}
 }
-
 
 tryToMakeMap = function(mapConfig) {
 	map = null
