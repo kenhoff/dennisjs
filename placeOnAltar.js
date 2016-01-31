@@ -39,6 +39,10 @@ module.exports = function(controller, io) {
 							convo.say(responseString)
 							convo.say("")
 							convo.say("The glowing items on the altar increase in intensity, obscuring your vision!")
+							io.emit("play_audio", {
+								for: message.user,
+								level: user_game.level + 1
+							})
 							convo.say("When they fade, you find yourself in a completely different room.")
 							makeNewGame.createLevel(user_game.level + 1, function(game_data) {
 								game_data.id = message.user

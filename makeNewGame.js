@@ -99,7 +99,6 @@ module.exports = {
 				pickuppable: false,
 			})
 		}
-
 		var mapConfig = {
 			blobbiness: 0.5,
 			width: 10,
