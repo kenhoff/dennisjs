@@ -40,7 +40,7 @@ availableArtifacts = [{
 }, {
 	id: "eyes",
 	displayChar: "e",
-	displayName: "a pair of mom's eyes",
+	displayName: "mom's eyes",
 	description: "You look just like your father, except for--",
 	imgURL: "http://towerofdoom.hoff.tech/items_momeyes_floor3.png",
 	pickuppable: true,
@@ -51,6 +51,62 @@ availableArtifacts = [{
 	displayName: "a memory of someone else",
 	description: "You used to like them. secretly, you hope they still think of you.",
 	imgURL: "http://towerofdoom.hoff.tech/items_thoughts_floor3.png",
+	pickuppable: true,
+	minimumLevel: 2
+}, {
+	id: "laugh",
+	displayChar: "l",
+	displayName: "dad's laughter",
+	description: "Loud and welcoming.",
+	imgURL: "http://towerofdoom.hoff.tech/items_dadslaugh_floor2.png",
+	pickuppable: true,
+	minimumLevel: 1
+}, {
+	id: "song",
+	displayChar: "s",
+	displayName: "an old song",
+	description: "It gets in your head sometimes, but you can never remember the words.",
+	imgURL: "http://towerofdoom.hoff.tech/items_song_floor2.png",
+	pickuppable: true,
+	minimumLevel: 1
+}, {
+	id: "photos",
+	displayChar: "p",
+	displayName: "a photo booth reel",
+	description: "These were taken a long time ago.",
+	imgURL: "http://towerofdoom.hoff.tech/items_photos_floor1.png",
+	pickuppable: true,
+	minimumLevel: 0
+}, {
+	id: "hands",
+	displayChar: "h",
+	displayName: "your hands",
+	description: "You've always had them.",
+	imgURL: "http://towerofdoom.hoff.tech/items_hands_floor3.png",
+	pickuppable: true,
+	minimumLevel: 2
+}, {
+	id: "words",
+	displayChar: "w",
+	displayName: "your words",
+	description: "Use them while you can.",
+	imgURL: "http://towerofdoom.hoff.tech/items_words_floor3.png",
+	pickuppable: true,
+	minimumLevel: 2
+}, {
+	id: "hate",
+	displayChar: "h",
+	displayName: "your hate",
+	description: "Bottled up for future use.",
+	imgURL: "http://towerofdoom.hoff.tech/items_flaws_floor3.png",
+	pickuppable: true,
+	minimumLevel: 2
+}, {
+	id: "love",
+	displayChar: "l",
+	displayName: "your love",
+	description: "Not quite a heart, but works just as well.",
+	imgURL: "http://towerofdoom.hoff.tech/items_heart_floor3.png",
 	pickuppable: true,
 	minimumLevel: 2
 }]

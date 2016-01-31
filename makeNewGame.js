@@ -1,27 +1,27 @@
 levelParams = [{
 	roomCount: 3,
 	ritualItemCount: 1,
-	totalItemCount: 1,
+	totalItemCount: 2,
 	entranceText: "This tower is the prison of Ur-Grue, the legendary dream eater and memory wraith."
 }, {
 	roomCount: 4,
 	ritualItemCount: 2,
-	totalItemCount: 3,
+	totalItemCount: 4,
 	entranceText: "The second floor of Ur-Grue's tower materializes before your eyes. You can feel its presence slowly growing stronger..."
 }, {
 	roomCount: 5,
 	ritualItemCount: 3,
-	totalItemCount: 5,
+	totalItemCount: 6,
 	entranceText: "This is the third floor of Ur-Grue's tower. Your memories are starting to feel a little hazy at this point."
 }, {
 	roomCount: 6,
 	ritualItemCount: 4,
-	totalItemCount: 5,
+	totalItemCount: 8,
 	entranceText: "This is the fourth and penultimate floor of Ur-Grue's tower. You're not really sure what's real anymore."
 }, {
 	roomCount: 7,
 	ritualItemCount: 5,
-	totalItemCount: 5,
+	totalItemCount: 10,
 	entranceText: "You've reached the final floor of Ur-Grue's tower. Vanquish him before it's too late!"
 }]
 

@@ -1,4 +1,5 @@
 module.exports = function(itemString, map) {
+	matchedItems = []
 	playerLocation = findPlayer(map)
 	thingsInRoom = map[playerLocation.x][playerLocation.y].objects.filter(function(object) {
 		return (object.id != "player")
@@ -30,18 +31,46 @@ module.exports = function(itemString, map) {
 			} else {
 				altarString = ""
 			}
-			if ("imgURL" in thing) {
-				return {
-					text: thing.description + " " + altarString,
-					attachments: [{
-						"fallback": thing.displayName,
-						"image_url": thing.imgURL
-					}]
-				}
-			} else {
-				return thing.description + " " + altarString
+
+			// add thing to array of things to return
+
+			matchedItems.push(thing)
+
+
+			// if ("imgURL" in thing) {
+			// 	return {
+			// 		text: thing.description + " " + altarString,
+			// 		attachments: [{
+			// 			"fallback": thing.displayName,
+			// 			"image_url": thing.imgURL
+			// 		}]
+			// 	}
+			// } else {
+			// 	return thing.description + " " + altarString
+			// }
+		}
+	}
+	if (matchedItems.length != 0) {
+		matchedItemStrings = []
+		matchedItemAttachments = []
+
+		for (matchedItem of matchedItems) {
+			matchedItemStrings.push("There is " + matchedItem.displayName + " in the room. " + matchedItem.description);
+			if ("imgURL" in matchedItem) {
+				matchedItemAttachments.push({
+					fallback: matchedItem.displayName,
+					image_url: matchedItem.imgURL
+				})
 			}
 		}
+
+		// now, return string or message object with all of the things in the room.
+		messageObject = {
+			text: matchedItemStrings.join(" ") + " " + altarString,
+			attachments: matchedItemAttachments
+		}
+		console.log(messageObject);
+		return messageObject
 	}
 	if (itemString[0].match(/[aeiou]/)) {
 		return "There isn't an " + itemString + " in the room."
