@@ -13,6 +13,8 @@
 <audio id="level5music - loop" src="/Level 5 - Stem 1 (Looping).ogg" loop/>
 
 <audio id="footsteps" src="/Footsteps.ogg" />
+<audio id="pickup" src="/Item Pickup.ogg" />
+<audio id="drop" src="/Item Drop.ogg" />
 <audio id="correct1" src="/Correct Item 1.ogg" />
 <audio id="correct2" src="/Correct Item 2.ogg" />
 <audio id="correct3" src="/Correct Item 3.ogg" />
@@ -37,6 +39,8 @@
 	level4MusicLoop = document.getElementById('level5music - loop')
 
 	footsteps = document.getElementById('footsteps')
+	pickup = document.getElementById('pickup')
+	drop = document.getElementById('drop')
 	correct1 = document.getElementById('correct1')
 	correct2 = document.getElementById('correct2')
 	correct3 = document.getElementById('correct3')
@@ -80,13 +84,13 @@
 					// crossfade, duh
 					setTimeout(function() {
 						level2MusicLoop.pause()
-					})
+					}, 1000)
 					level3MusicLoop.play()
 				} else if (data.level == 4) {
 					// crossfade, duh
 					setTimeout(function() {
 						level3MusicLoop.pause()
-					})
+					}, 1000)
 					level4MusicLoop.play()
 				}
 			} else if ("effect" in data) {
@@ -106,12 +110,12 @@
 					complete.play()
 				} else if (data.effect == "fizzle") {
 					fizzle.play()
+				} else if (data.effect == "pickup") {
+					pickup.play()
+				} else if (data.effect == "drop") {
+					drop.play()
 				}
 			}
 		}
 	})
-
-	// function crossfade(audioFadeOut, audioFadeIn) {
-	//
-	// }
 </script>
