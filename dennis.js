@@ -55,7 +55,7 @@ controller.on('user_channel_join', function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
 		convo.say("Welcome to the Tower Of Doom! Muhahaha.....")
 		convo.say("The Tower Of Doom is a text-based adventure game.")
-		// put bit about music here?
+			// put bit about music here?
 		convo.say("type `help` to get started.")
 	})
 })
@@ -76,7 +76,7 @@ if (process.env.NODE_ENV != "production") {
 	})
 }
 
-controller.hears(["look (.*)|look"], "direct_message", function(bot, message) {
+controller.hears(["look at (.*)", "look (.*)", "look", "examine", "examine (.*)"], "direct_message", function(bot, message) {
 	controller.storage.users.get(message.user, function(err, user_game) {
 		if (user_game.gameActive == true) {
 			if (message.match[1]) {
@@ -103,7 +103,7 @@ makeNewGame = require("./makeNewGame.js")
 require("./movement.js")(controller, io)
 require("./placeOnAltar.js")(controller, io)
 
-commands = ["new game", "look", "look <item>", "inventory", "pick up <item", "drop <item>", "place <item> on altar"]
+commands = ["new game", "look", "move <direction>", "look <item>", "inventory", "pick up <item", "drop <item>", "place <item> on altar"]
 for (var i = 0; i < commands.length; i++) {
 	commands[i] = "`" + commands[i] + "`"
 }
