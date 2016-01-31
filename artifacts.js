@@ -32,7 +32,7 @@ availableArtifacts = [{
 }, {
 	id: "collar",
 	displayChar: "c",
-	displayName: "the name of a lost dog",
+	displayName: "the collar of a lost dog",
 	description: "You found the collar, but not the dog.",
 	imgURL: "http://towerofdoom.hoff.tech/items_collar_floor2.png",
 	pickuppable: true,
