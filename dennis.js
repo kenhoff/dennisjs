@@ -29,7 +29,7 @@ var bot = controller.spawn({
 
 var seedrandom = require('seedrandom');
 var seed = "dennis" + String(Math.floor(Math.random() * 1e20))
-// var seed = "dennis50854962482117120000"
+	// var seed = "dennis50854962482117120000"
 
 seedrandom(seed, {
 	global: true
@@ -114,6 +114,12 @@ controller.hears(["help", "halp"], "direct_message", function(bot, message) {
 controller.hears(["credits", "about"], "direct_message", function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
 		convo.say("The _Tower Of Doom_ is an experimental game created by Bananacat Studios for Global Game Jam 2016.")
+		convo.say({
+			attachments: [{
+				fallback: "a bananacat",
+				image_url: "http://towerofdoom.hoff.tech/bananacat_512.png"
+			}]
+		})
 		convo.say("Bananacat Studios is composed of Kacy Corlett, Joshua Du Chene, and Ken Hoff.")
 		convo.say("Thanks for playing! Excelsior!")
 	})

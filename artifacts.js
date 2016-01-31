@@ -3,6 +3,7 @@ fixedArtifacts = [{
 	displayChar: "a",
 	displayName: "a stone altar",
 	description: "It's an ominous stone altar. It looks like you can put things on it.",
+	imgURL: "http://towerofdoom.hoff.tech/altar2.png",
 	pickuppable: false,
 	inventory: []
 }, {

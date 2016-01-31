@@ -38,6 +38,7 @@ module.exports = function(controller, io) {
 						bot.startPrivateConversation(message, function(err, convo) {
 							convo.say(responseString)
 							convo.say("")
+							convo.say("")
 							convo.say("The glowing items on the altar increase in intensity, obscuring your vision!")
 							io.emit("play_audio", {
 								for: message.user,
@@ -47,7 +48,11 @@ module.exports = function(controller, io) {
 								for: message.user,
 								level: user_game.level + 1
 							})
+							convo.say("")
+							convo.say("")
 							convo.say("When they fade, you find yourself in a completely different room.")
+							convo.say("")
+							convo.say("")
 							makeNewGame.createLevel(user_game.level + 1, function(game_data) {
 								game_data.id = message.user
 								game_data.gameActive = true

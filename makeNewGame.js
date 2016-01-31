@@ -43,10 +43,27 @@ module.exports = {
 									if (err) {
 										convo.say("error starting game!")
 									} else {
-										convo.say(newGameString)
+										convo.say("Welcome to *Small Sacrifices*.")
+										convo.say({
+											text: "",
+											attachments: [{
+												fallback: "splash screen",
+												image_url: "http://towerofdoom.hoff.tech/splash_small.png"
+											}]
+										})
+										convo.say("")
+										convo.say("")
+										convo.say("")
 										convo.say("_For audio, open " + process.env.URL + "audio/" + message.user + " in a new tab._")
+										convo.say("")
+										convo.say("")
+										convo.say("")
 										convo.say(levelParams[0].entranceText)
+										convo.say("")
+										convo.say("")
+										convo.say("")
 										convo.say(contentsOfRoom(game_data.map))
+										convo.say(newGameString)
 										convo.next()
 									}
 								})
@@ -69,10 +86,27 @@ module.exports = {
 							if (err) {
 								convo.say("error starting game!")
 							} else {
-								convo.say(newGameString)
+								convo.say("Welcome to *Small Sacrifices*.")
+								convo.say({
+									text: "",
+									attachments: [{
+										fallback: "splash screen",
+										image_url: "http://towerofdoom.hoff.tech/splash_small.png"
+									}]
+								})
+								convo.say("")
+								convo.say("")
+								convo.say("")
 								convo.say("_For audio, open " + process.env.URL + "audio/" + message.user + " in a new tab._")
+								convo.say("")
+								convo.say("")
+								convo.say("")
 								convo.say(levelParams[0].entranceText)
+								convo.say("")
+								convo.say("")
+								convo.say("")
 								convo.say(contentsOfRoom(game_data.map))
+								convo.say(newGameString)
 							}
 						})
 					}.bind(this))
