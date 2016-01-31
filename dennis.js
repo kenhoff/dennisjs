@@ -53,7 +53,10 @@ bot.startRTM(function(err, bot, payload) {
 
 controller.on('user_channel_join', function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
-		convo.say("welcome to the village")
+		convo.say("Welcome to the Tower Of Doom! Muhahaha.....")
+		convo.say("The Tower Of Doom is a text-based adventure game.")
+		// put bit about music here?
+		convo.say("type `help` to get started.")
 	})
 })
 
