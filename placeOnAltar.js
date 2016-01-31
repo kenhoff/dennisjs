@@ -126,7 +126,7 @@ function tryToPlaceObjectOnAltar(objectString, map, ritual, ritual_progress, cb)
 				if (thingInRoom.id == "altar") {
 					// if both, then pop the player inventory, push the altar inventory
 					thingInRoom.inventory.push(playerObject.inventory.splice(i, 1)[0])
-					placementString = "You place the " + thingInRoom.inventory[thingInRoom.inventory.length - 1].displayName + " on the altar."
+					placementString = "You place " + thingInRoom.inventory[thingInRoom.inventory.length - 1].displayName + " on the altar."
 					lengthOfRitualProgress = ritual_progress.push(thingInRoom.inventory[thingInRoom.inventory.length - 1].id)
 					if (ritual[lengthOfRitualProgress - 1] != ritual_progress[lengthOfRitualProgress - 1]) {
 						if (ritual_progress.length == 1) {

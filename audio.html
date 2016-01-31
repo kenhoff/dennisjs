@@ -63,10 +63,8 @@
 				if (data.level == 1) {
 					// need to crossfade, duh
 					clearTimeout(level0LoopTimeout)
-					setTimeout(function() {
-						level0MusicOneShot.pause()
-						level0MusicLoop.pause()
-					}, 1000)
+					level0MusicOneShot.pause()
+					level0MusicLoop.pause()
 					level1MusicOneShot.play()
 					level1LoopTimeout = setTimeout(function() {
 						console.log("playing level 1 loop");
@@ -75,22 +73,16 @@
 				} else if (data.level == 2) {
 					// crossfade, duh
 					clearTimeout(level1LoopTimeout)
-					setTimeout(function() {
-						level1MusicOneShot.pause()
-						level1MusicLoop.pause()
-					}, 1000)
+					level1MusicOneShot.pause()
+					level1MusicLoop.pause()
 					level2MusicLoop.play()
 				} else if (data.level == 3) {
 					// crossfade, duh
-					setTimeout(function() {
-						level2MusicLoop.pause()
-					}, 1000)
+					level2MusicLoop.pause()
 					level3MusicLoop.play()
 				} else if (data.level == 4) {
 					// crossfade, duh
-					setTimeout(function() {
-						level3MusicLoop.pause()
-					}, 1000)
+					level3MusicLoop.pause()
 					level4MusicLoop.play()
 				}
 			} else if ("effect" in data) {

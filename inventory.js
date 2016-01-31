@@ -1,6 +1,6 @@
 findPlayer = require("./findPlayer.js")
 
-module.exports = function(controller) {
+module.exports = function(controller, io) {
 	controller.hears(['inventory'], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
@@ -21,7 +21,7 @@ module.exports = function(controller) {
 	controller.hears(["pick up (.*)", "take (.*)", "grab (.*)", "get (.*)", "collect (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
-				bot.reply(message, attemptToGet(message.match[1], user_game.map, user_game.ritual_progress))
+				bot.reply(message, attemptToGet(message.match[1], user_game.map, user_game.ritual_progress, io, message.user))
 				controller.storage.users.save({
 					id: message.user,
 					map: user_game.map,
@@ -38,7 +38,7 @@ module.exports = function(controller) {
 	controller.hears(["drop (.*) on floor", "drop (.*) on ground", "place (.*) on floor", "place (.*) on ground", "put (.*) on floor", "put (.*) on ground", "drop (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
-				bot.reply(message, attemptToDrop(message.match[1], user_game.map, user_game.ritual_progress))
+				bot.reply(message, attemptToDrop(message.match[1], user_game.map, user_game.ritual_progress, io, message.user))
 				controller.storage.users.save({
 					id: message.user,
 					map: user_game.map,
@@ -55,7 +55,7 @@ module.exports = function(controller) {
 	})
 }
 
-function attemptToGet(itemString, map, ritual_progress) {
+function attemptToGet(itemString, map, ritual_progress, io, user) {
 	playerLocation = findPlayer(map)
 	playerObject = null
 	for (object of map[playerLocation.x][playerLocation.y].objects) {
@@ -74,6 +74,10 @@ function attemptToGet(itemString, map, ritual_progress) {
 				// pop off room objects list, push onto player inventory list
 				item = thingsInRoom.splice(i, 1)[0]
 				putInInventory(item, map)
+				io.emit("play_audio", {
+					for: user,
+					effect: "pickup"
+				})
 				return {
 					text: "You pick up " + playerObject.inventory[playerObject.inventory.length - 1].displayName + " and put it in your pack."
 				}
@@ -90,6 +94,16 @@ function attemptToGet(itemString, map, ritual_progress) {
 						fizzleText = ""
 					}
 					ritual_progress.length = 0
+					io.emit("play_audio", {
+						for: message.user,
+						effect: "pickup"
+					})
+					if (fizzleText != "") {
+						io.emit("play_audio", {
+							for: message.user,
+							effect: "fizzle"
+						})
+					}
 					return {
 						text: "You pick " + item.displayName + " up off the altar and place it in your pack." + fizzleText
 					}
@@ -114,7 +128,7 @@ function putInInventory(object, map) {
 	}
 }
 
-function attemptToDrop(itemString, map) {
+function attemptToDrop(itemString, map, ritual_progress, io, user) {
 	playerLocation = findPlayer(map)
 	playerObject = null
 	for (object of map[playerLocation.x][playerLocation.y].objects) {
@@ -127,6 +141,10 @@ function attemptToDrop(itemString, map) {
 		if (playerObject.inventory[i].displayName.includes(itemString)) {
 			// pop off room objects list, push onto player inventory list
 			thingsInRoom.push(playerObject.inventory.splice(i, 1)[0])
+			io.emit("play_audio", {
+				for: user,
+				effect: "drop"
+			})
 			return {
 				text: "You take " + thingsInRoom[thingsInRoom.length - 1].displayName + " out of your pack and drop it on the floor."
 			}

@@ -41,7 +41,6 @@ mapPrinter = require("./mapPrinter.js")
 findPlayer = require("./findPlayer.js")
 movePlayer = require("./movePlayer.js")
 lookAtItem = require('./lookAtItem.js');
-inventory = require("./inventory.js")(controller)
 pickRitualObjects = require("./pickRitualObjects.js")
 
 bot.startRTM(function(err, bot, payload) {
@@ -103,6 +102,8 @@ makeNewGame = require("./makeNewGame.js")
 
 require("./movement.js")(controller, io)
 require("./placeOnAltar.js")(controller, io)
+inventory = require("./inventory.js")(controller, io)
+
 
 commands = ["new game", "look", "move <direction>", "look <item>", "inventory", "pick up <item", "drop <item>", "place <item> on altar", "credits"]
 for (var i = 0; i < commands.length; i++) {
