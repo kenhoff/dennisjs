@@ -21,7 +21,6 @@ var redisStorage = require('botkit-storage-redis')({
 })
 var botkit = require('botkit');
 var controller = botkit.slackbot({
-	// debug: true,
 	storage: redisStorage
 });
 var bot = controller.spawn({
@@ -43,8 +42,6 @@ lookAtItem = require('./lookAtItem.js');
 inventory = require("./inventory.js")(controller)
 pickRitualObjects = require("./pickRitualObjects.js")
 
-// ritual = ["skull", "emerald", "bauble"]
-
 bot.startRTM(function(err, bot, payload) {
 	if (err) {
 		console.log(err);
@@ -54,13 +51,11 @@ bot.startRTM(function(err, bot, payload) {
 	}
 });
 
-controller.on('team_join', function(bot, message) {
-	console.log(message);
+controller.on('user_channel_join', function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
-		convo.say("hello!")
+		convo.say("welcome to the village")
 	})
-});
-
+})
 
 controller.hears(["new game"], "direct_message", function(bot, message) {
 	makeNewGame.listenForNewGame(controller, bot, message)
