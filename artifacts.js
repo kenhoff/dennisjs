@@ -57,20 +57,13 @@ availableArtifacts = [{
 
 module.exports = {
 	getArtifactListForLevel: function(countOfArtifacts, levelNumber) {
-		// console.log("attempting to get", countOfArtifacts, "artifacts for level", levelNumber);
 		newAvailableArtifacts = availableArtifacts.slice()
 		itemList = []
 		while (itemList.length < countOfArtifacts) {
-			// console.log(itemList);
 			index = Math.floor(Math.random() * newAvailableArtifacts.length)
-				// console.log(index);
-				// console.log(newAvailableArtifacts[index]);
-				// console.log("is", newAvailableArtifacts[index].minimumLevel, "<=", levelNumber, "?");
 			if (newAvailableArtifacts[index].minimumLevel <= levelNumber) {
 				itemList.push(newAvailableArtifacts.splice(index, 1)[0])
-					// console.log(itemList);
 			} else {
-				// console.log("no!");
 			}
 		}
 		return itemList.concat(fixedArtifacts)

@@ -36,6 +36,8 @@ module.exports = {
 										convo.say("error starting game!")
 									} else {
 										convo.say(newGameString)
+										convo.say(contentsOfRoom(game_data.map))
+
 										convo.next()
 									}
 								})
@@ -58,6 +60,8 @@ module.exports = {
 							bot.reply(message, "error starting game!")
 						} else {
 							bot.reply(message, newGameString)
+							bot.reply(message, contentsOfRoom(game_data.map))
+
 						}
 					})
 				})
@@ -96,7 +100,8 @@ module.exports = {
 			map: tryToMakeMap(mapConfig),
 			ritual: ritual,
 			ritual_progress: [],
-			level: levelNumber
+			level: levelNumber,
+			entranceText: levelParams[levelNumber].entranceText
 		})
 	}
 }

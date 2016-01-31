@@ -1,4 +1,5 @@
 var makeNewGame = require('./makeNewGame.js');
+var contentsOfRoom = require('./contentsOfRoom.js');
 
 module.exports = function(controller, io) {
 	controller.hears(["(place|put|drop) (.*) on altar"], "direct_message", function(bot, message) {
@@ -11,6 +12,8 @@ module.exports = function(controller, io) {
 						game_data.id = message.user
 						game_data.gameActive = true
 						controller.storage.users.save(game_data)
+						bot.reply(message, game_data.entranceText)
+						bot.reply(message, contentsOfRoom(game_data.map))
 					})
 				} else {
 					controller.storage.users.save({
