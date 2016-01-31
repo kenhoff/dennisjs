@@ -42,9 +42,9 @@ availableArtifacts = [{
 	displayChar: "e",
 	displayName: "mom's eyes",
 	description: "You look just like your father, except for--",
-	imgURL: "http://towerofdoom.hoff.tech/items_momeyes_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_momeyes_floor4.png",
 	pickuppable: true,
-	minimumLevel: 2
+	minimumLevel: 3
 }, {
 	id: "thoughts",
 	displayChar: "t",
@@ -58,81 +58,81 @@ availableArtifacts = [{
 	displayChar: "l",
 	displayName: "dad's laughter",
 	description: "Loud and welcoming.",
-	imgURL: "http://towerofdoom.hoff.tech/items_dadslaugh_floor2.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_dadslaugh_floor3.png",
 	pickuppable: true,
-	minimumLevel: 1
+	minimumLevel: 2
 }, {
 	id: "song",
 	displayChar: "s",
 	displayName: "an old song",
 	description: "It gets in your head sometimes, but you can never remember the words.",
-	imgURL: "http://towerofdoom.hoff.tech/items_song_floor2.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_song_floor4.png",
 	pickuppable: true,
-	minimumLevel: 1
+	minimumLevel: 3
 }, {
 	id: "photos",
 	displayChar: "p",
 	displayName: "a photo booth reel",
 	description: "These were taken a long time ago.",
-	imgURL: "http://towerofdoom.hoff.tech/items_photos_floor1.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_photos_floor3.png",
 	pickuppable: true,
-	minimumLevel: 0
+	minimumLevel: 2
 }, {
 	id: "hands",
 	displayChar: "h",
 	displayName: "your hands",
 	description: "You've always had them.",
-	imgURL: "http://towerofdoom.hoff.tech/items_hands_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_hands_floor5.png",
 	pickuppable: true,
-	minimumLevel: 2
+	minimumLevel: 4
 }, {
 	id: "words",
 	displayChar: "w",
 	displayName: "your words",
 	description: "Use them while you can.",
-	imgURL: "http://towerofdoom.hoff.tech/items_words_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_words_floor5.png",
 	pickuppable: true,
-	minimumLevel: 2
+	minimumLevel: 4
 }, {
 	id: "hate",
 	displayChar: "h",
 	displayName: "your hate",
 	description: "Bottled up for future use.",
-	imgURL: "http://towerofdoom.hoff.tech/items_flaws_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_hate_floor5.png",
 	pickuppable: true,
-	minimumLevel: 2
+	minimumLevel: 4
 }, {
 	id: "love",
 	displayChar: "l",
 	displayName: "your love",
 	description: "Not quite a heart, but works just as well.",
-	imgURL: "http://towerofdoom.hoff.tech/items_heart_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_heart_floor5.png",
 	pickuppable: true,
-	minimumLevel: 2
+	minimumLevel: 4
 }, {
 	id: "sleep",
 	displayChar: "s",
 	displayName: "another night's sleep",
 	description: "What's one more, after all this?",
-	imgURL: "http://towerofdoom.hoff.tech/items_sleep_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_sleep_floor4.png",
 	pickuppable: true,
-	minimumLevel: 2
+	minimumLevel: 3
 }, {
 	id: "time",
 	displayChar: "t",
 	displayName: "all your time",
 	description: "It just keeps pouring.",
-	imgURL: "http://towerofdoom.hoff.tech/items_time_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_time_floor5.png",
 	pickuppable: true,
-	minimumLevel: 2
+	minimumLevel: 4
 }, {
 	id: "summer",
 	displayChar: "s",
 	displayName: "one warm summer",
-	description: "Summer flavor text.",
-	imgURL: "http://towerofdoom.hoff.tech/items_summer_floor2.png",
+	description: "You got ice cream, and you got sunburnt. you wonder if that ice cream place is even still around, anymore.",
+	imgURL: "http://towerofdoom.hoff.tech/items_summer_floor4.png",
 	pickuppable: true,
-	minimumLevel: 1
+	minimumLevel: 3
 }]
 
 module.exports = {
