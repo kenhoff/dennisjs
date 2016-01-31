@@ -29,6 +29,8 @@ var bot = controller.spawn({
 
 var seedrandom = require('seedrandom');
 var seed = "dennis" + String(Math.floor(Math.random() * 1e20))
+// var seed = "dennis50854962482117120000"
+
 seedrandom(seed, {
 	global: true
 });
@@ -102,14 +104,14 @@ makeNewGame = require("./makeNewGame.js")
 require("./movement.js")(controller, io)
 require("./placeOnAltar.js")(controller, io)
 
-commands = ["new game", "look", "move <direction>", "look <item>", "inventory", "pick up <item", "drop <item>", "place <item> on altar"]
+commands = ["new game", "look", "move <direction>", "look <item>", "inventory", "pick up <item", "drop <item>", "place <item> on altar", "credits"]
 for (var i = 0; i < commands.length; i++) {
 	commands[i] = "`" + commands[i] + "`"
 }
 controller.hears(["help"], "direct_message", function(bot, message) {
 	bot.reply(message, "Try some of these commands:\n" + commands.join("\n"))
 })
-controller.hears(["credits"], "direct_message", function(bot, message) {
+controller.hears(["credits", "about"], "direct_message", function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
 		convo.say("The _Tower Of Doom_ is an experimental game created by Bananacat Studios for Global Game Jam 2016.")
 		convo.say("Bananacat Studios is composed of Kacy Corlett, Joshua Du Chene, and Ken Hoff.")
@@ -117,11 +119,10 @@ controller.hears(["credits"], "direct_message", function(bot, message) {
 	})
 })
 
-
-
-
 controller.hears(['.*'], "direct_message", function(bot, message) {
-	bot.reply(message, "I didn't quite understand that. Type `help` to get some commands that you can use.")
+	bot.startPrivateConversation(message, function(err, convo) {
+		convo.say("I didn't quite understand that. Type `help` to get some commands that you can use.")
+	})
 })
 
 app.use(express.static("img"))

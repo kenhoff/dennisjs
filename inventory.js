@@ -64,9 +64,7 @@ function attemptToGet(itemString, map, ritual_progress) {
 			playerObject = object
 		}
 	}
-	thingsInRoom = map[playerLocation.x][playerLocation.y].objects.filter(function(object) {
-		return (object.id != "player")
-	})
+	thingsInRoom = map[playerLocation.x][playerLocation.y].objects
 	for (var i = 0; i < thingsInRoom.length; i++) {
 		if (thingsInRoom[i].displayName.includes(itemString)) {
 			if (!thingsInRoom[i].pickuppable) {
@@ -75,10 +73,14 @@ function attemptToGet(itemString, map, ritual_progress) {
 				}
 			} else {
 				// pop off room objects list, push onto player inventory list
-				item = map[playerLocation.x][playerLocation.y].objects.splice(i, 1)[0]
+				console.log(i);
+				console.log(thingsInRoom);
+				item = thingsInRoom.splice(i, 1)[0]
 				putInInventory(item, map)
+				console.log("room objects:", thingsInRoom);
+				console.log("player inventory:", playerObject.inventory);
 				return {
-					text: "You pick up " + thingsInRoom[i].displayName + " and put it in your pack."
+					text: "You pick up " + playerObject.inventory[playerObject.inventory.length - 1].displayName + " and put it in your pack."
 				}
 			}
 		}
@@ -109,6 +111,7 @@ function attemptToGet(itemString, map, ritual_progress) {
 }
 
 function putInInventory(object, map) {
+	console.log("trying to put", object.displayName, "in inventory");
 	playerLocation = findPlayer(map)
 	for (var i = 0; i < map[playerLocation.x][playerLocation.y].objects.length; i++) {
 		if (map[playerLocation.x][playerLocation.y].objects[i].id == "player") {
@@ -125,15 +128,15 @@ function attemptToDrop(itemString, map) {
 			playerObject = object
 		}
 	}
-	thingsInRoom = map[playerLocation.x][playerLocation.y].objects.filter(function(object) {
-		return (object.id != "player")
-	})
+	thingsInRoom = map[playerLocation.x][playerLocation.y].objects
 	for (var i = 0; i < playerObject.inventory.length; i++) {
 		if (playerObject.inventory[i].displayName.includes(itemString)) {
 			// pop off room objects list, push onto player inventory list
-			map[playerLocation.x][playerLocation.y].objects.push(playerObject.inventory.splice(i, 1)[0])
+			thingsInRoom.push(playerObject.inventory.splice(i, 1)[0])
+			console.log("room objects:", thingsInRoom);
+			console.log("player inventory:", playerObject.inventory);
 			return {
-				text: "You take " + map[playerLocation.x][playerLocation.y].objects[map[playerLocation.x][playerLocation.y].objects.length - 1].displayName + " out of your pack and drop it on the floor."
+				text: "You take " + thingsInRoom[thingsInRoom.length - 1].displayName + " out of your pack and drop it on the floor."
 			}
 		}
 	}
