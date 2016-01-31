@@ -31,23 +31,7 @@ module.exports = function(itemString, map) {
 			} else {
 				altarString = ""
 			}
-
-			// add thing to array of things to return
-
 			matchedItems.push(thing)
-
-
-			// if ("imgURL" in thing) {
-			// 	return {
-			// 		text: thing.description + " " + altarString,
-			// 		attachments: [{
-			// 			"fallback": thing.displayName,
-			// 			"image_url": thing.imgURL
-			// 		}]
-			// 	}
-			// } else {
-			// 	return thing.description + " " + altarString
-			// }
 		}
 	}
 	if (matchedItems.length != 0) {
@@ -69,7 +53,6 @@ module.exports = function(itemString, map) {
 			text: matchedItemStrings.join(" ") + " " + altarString,
 			attachments: matchedItemAttachments
 		}
-		console.log(messageObject);
 		return messageObject
 	}
 	if (itemString[0].match(/[aeiou]/)) {

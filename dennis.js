@@ -61,7 +61,7 @@ controller.on('user_channel_join', function(bot, message) {
 	})
 })
 
-controller.hears(["new game"], "direct_message", function(bot, message) {
+controller.hears(["new game", "new"], "direct_message", function(bot, message) {
 	makeNewGame.listenForNewGame(controller, bot, message)
 })
 
@@ -77,7 +77,7 @@ if (process.env.NODE_ENV != "production") {
 	})
 }
 
-controller.hears(["look at (.*)", "look (.*)", "look", "examine", "examine (.*)"], "direct_message", function(bot, message) {
+controller.hears(["look around", "look at (.*)", "look (.*)", "look", "examine", "examine (.*)", "inspect", "inspect (.*)", "read", "read (.*)"], "direct_message", function(bot, message) {
 	controller.storage.users.get(message.user, function(err, user_game) {
 		if (user_game.gameActive == true) {
 			if (message.match[1]) {
@@ -108,7 +108,7 @@ commands = ["new game", "look", "move <direction>", "look <item>", "inventory", 
 for (var i = 0; i < commands.length; i++) {
 	commands[i] = "`" + commands[i] + "`"
 }
-controller.hears(["help"], "direct_message", function(bot, message) {
+controller.hears(["help", "halp"], "direct_message", function(bot, message) {
 	bot.reply(message, "Try some of these commands:\n" + commands.join("\n"))
 })
 controller.hears(["credits", "about"], "direct_message", function(bot, message) {

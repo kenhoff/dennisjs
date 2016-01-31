@@ -81,7 +81,6 @@ module.exports = {
 		}.bind(this))
 	},
 	createLevel: function(levelNumber, cb) {
-		console.log("level", levelNumber);
 		if (!levelNumber) {
 			levelNumber = 0
 		}

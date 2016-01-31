@@ -18,7 +18,7 @@ module.exports = function(controller) {
 			}
 		})
 	})
-	controller.hears(["pick up (.*)", "take (.*)", "grab (.*)", "get (.*)"], "direct_message", function(bot, message) {
+	controller.hears(["pick up (.*)", "take (.*)", "grab (.*)", "get (.*)", "collect (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
 				bot.reply(message, attemptToGet(message.match[1], user_game.map, user_game.ritual_progress))
@@ -35,10 +35,9 @@ module.exports = function(controller) {
 			}
 		})
 	})
-	controller.hears(["drop (.*)"], "direct_message", function(bot, message) {
+	controller.hears(["drop (.*) on floor", "drop (.*) on ground", "place (.*) on floor", "place (.*) on ground", "put (.*) on floor", "put (.*) on ground", "drop (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			if (user_game.gameActive == true) {
-				console.log(message.match[1]);
 				bot.reply(message, attemptToDrop(message.match[1], user_game.map, user_game.ritual_progress))
 				controller.storage.users.save({
 					id: message.user,
@@ -73,12 +72,8 @@ function attemptToGet(itemString, map, ritual_progress) {
 				}
 			} else {
 				// pop off room objects list, push onto player inventory list
-				console.log(i);
-				console.log(thingsInRoom);
 				item = thingsInRoom.splice(i, 1)[0]
 				putInInventory(item, map)
-				console.log("room objects:", thingsInRoom);
-				console.log("player inventory:", playerObject.inventory);
 				return {
 					text: "You pick up " + playerObject.inventory[playerObject.inventory.length - 1].displayName + " and put it in your pack."
 				}
@@ -111,7 +106,6 @@ function attemptToGet(itemString, map, ritual_progress) {
 }
 
 function putInInventory(object, map) {
-	console.log("trying to put", object.displayName, "in inventory");
 	playerLocation = findPlayer(map)
 	for (var i = 0; i < map[playerLocation.x][playerLocation.y].objects.length; i++) {
 		if (map[playerLocation.x][playerLocation.y].objects[i].id == "player") {
@@ -133,8 +127,6 @@ function attemptToDrop(itemString, map) {
 		if (playerObject.inventory[i].displayName.includes(itemString)) {
 			// pop off room objects list, push onto player inventory list
 			thingsInRoom.push(playerObject.inventory.splice(i, 1)[0])
-			console.log("room objects:", thingsInRoom);
-			console.log("player inventory:", playerObject.inventory);
 			return {
 				text: "You take " + thingsInRoom[thingsInRoom.length - 1].displayName + " out of your pack and drop it on the floor."
 			}

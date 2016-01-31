@@ -2,7 +2,7 @@ var makeNewGame = require('./makeNewGame.js');
 var contentsOfRoom = require('./contentsOfRoom.js');
 
 module.exports = function(controller, io) {
-	controller.hears(["(place|put|drop) (.*) on altar"], "direct_message", function(bot, message) {
+	controller.hears(["(place|put|drop) (.*) on altar", "(place|put|drop) (.*) in altar", "(place|put|drop) (.*) altar", "(place|put) (.*)"], "direct_message", function(bot, message) {
 		controller.storage.users.get(message.user, function(err, user_game) {
 			tryToPlaceObjectOnAltar(message.match[2], user_game.map, user_game.ritual, user_game.ritual_progress, function(responseString, completedRitual, ritualIncreased) {
 				if (completedRitual) {
