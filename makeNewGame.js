@@ -44,8 +44,8 @@ module.exports = {
 										convo.say("error starting game!")
 									} else {
 										convo.say(newGameString)
+										convo.say("_For audio, open " + process.env.URL + "audio/" + message.user + " in a new tab._")
 										convo.say(levelParams[0].entranceText)
-											// put stuff about audio here
 										convo.say(contentsOfRoom(game_data.map))
 										convo.next()
 									}
@@ -60,22 +60,23 @@ module.exports = {
 					}])
 				}.bind(this))
 			} else {
-				bot.reply(message, "Starting new game...")
-				this.createLevel(0, function(game_data) {
-					game_data.id = message.user
-					game_data.gameActive = true
-					controller.storage.users.save(game_data, function(err) {
-						if (err) {
-							bot.reply(message, "error starting game!")
-						} else {
-							bot.reply(message, newGameString)
-							bot.reply(message, levelParams[0].entranceText)
-								// put stuff about audio here
-							bot.reply(message, contentsOfRoom(game_data.map))
-
-						}
-					})
-				})
+				bot.startPrivateConversation(message, function(err, convo) {
+					convo.say("Starting new game...")
+					this.createLevel(0, function(game_data) {
+						game_data.id = message.user
+						game_data.gameActive = true
+						controller.storage.users.save(game_data, function(err) {
+							if (err) {
+								convo.say("error starting game!")
+							} else {
+								convo.say(newGameString)
+								convo.say("_For audio, open " + process.env.URL + "audio/" + message.user + " in a new tab._")
+								convo.say(levelParams[0].entranceText)
+								convo.say(contentsOfRoom(game_data.map))
+							}
+						})
+					}.bind(this))
+				}.bind(this))
 			}
 		}.bind(this))
 	},

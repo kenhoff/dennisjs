@@ -128,7 +128,7 @@ controller.hears(['.*'], "direct_message", function(bot, message) {
 app.use(express.static("img"))
 app.use(express.static("audio"))
 
-app.get("/game/:userID", function(req, res) {
+app.get("/audio/:userID", function(req, res) {
 	res.sendFile(__dirname + "/audio.html")
 })
 
