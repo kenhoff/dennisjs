@@ -18,7 +18,7 @@ availableArtifacts = [{
 	displayChar: "j",
 	displayName: "your favorite jacket",
 	description: "Worn leather. It fits you perfectly.",
-	imgURL: "https://towerofdoom.hoff.tech/items_jacket_floor1.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_jacket_floor1.png",
 	pickuppable: true,
 	minimumLevel: 0
 }, {
@@ -26,7 +26,7 @@ availableArtifacts = [{
 	displayChar: "b",
 	displayName: "a worn stuffed rabbit",
 	description: "You haven't thought of it for years, but it still seems a little sad to give it up now.",
-	imgURL: "https://towerofdoom.hoff.tech/items_bunny_floor2.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_bunny_floor2.png",
 	pickuppable: true,
 	minimumLevel: 1
 }, {
@@ -34,7 +34,7 @@ availableArtifacts = [{
 	displayChar: "c",
 	displayName: "the name of a lost dog",
 	description: "You found the collar, but not the dog.",
-	imgURL: "https://towerofdoom.hoff.tech/items_collar_floor2.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_collar_floor2.png",
 	pickuppable: true,
 	minimumLevel: 1
 }, {
@@ -42,7 +42,7 @@ availableArtifacts = [{
 	displayChar: "e",
 	displayName: "mom's eyes",
 	description: "You look just like your father, except for--",
-	imgURL: "https://towerofdoom.hoff.tech/items_momeyes_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_momeyes_floor3.png",
 	pickuppable: true,
 	minimumLevel: 2
 }, {
@@ -50,7 +50,7 @@ availableArtifacts = [{
 	displayChar: "t",
 	displayName: "memories of someone else",
 	description: "You used to like them. secretly, you hope they still think of you.",
-	imgURL: "https://towerofdoom.hoff.tech/items_thoughts_floor3.png",
+	imgURL: "http://towerofdoom.hoff.tech/items_thoughts_floor3.png",
 	pickuppable: true,
 	minimumLevel: 2
 }, {
