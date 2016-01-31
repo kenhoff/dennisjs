@@ -115,6 +115,7 @@ controller.hears(["credits", "about"], "direct_message", function(bot, message) 
 	bot.startPrivateConversation(message, function(err, convo) {
 		convo.say("The _Tower Of Doom_ is an experimental game created by Bananacat Studios for Global Game Jam 2016.")
 		convo.say({
+			text: "",
 			attachments: [{
 				fallback: "a bananacat",
 				image_url: "http://towerofdoom.hoff.tech/bananacat_512.png"

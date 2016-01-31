@@ -30,6 +30,13 @@ module.exports = function(controller, io) {
 							convo.say("")
 							convo.say("")
 							convo.say("The _Tower Of Doom_ is an experimental game created by Bananacat Studios for Global Game Jam 2016.")
+							convo.say({
+								text: "",
+								attachments: [{
+									fallback: "a bananacat",
+									image_url: "http://towerofdoom.hoff.tech/bananacat_512.png"
+								}]
+							})
 							convo.say("Bananacat Studios is composed of Kacy Corlett, Joshua Du Chene, and Ken Hoff.")
 							convo.say("Thanks for playing! Excelsior!")
 						})
