@@ -3,7 +3,7 @@ fixedArtifacts = [{
 	displayChar: "a",
 	displayName: "a stone altar",
 	description: "It's an ominous stone altar. It looks like you can put things on it.",
-	imgURL: "http://towerofdoom.hoff.tech/altar2.png",
+	imgURL: "http://smallsacrifices.hoff.tech/altar2.png",
 	pickuppable: false,
 	inventory: []
 }, {
@@ -19,7 +19,7 @@ availableArtifacts = [{
 	displayChar: "j",
 	displayName: "your favorite jacket",
 	description: "Worn leather. It fits you perfectly.",
-	imgURL: "http://towerofdoom.hoff.tech/items_jacket_floor1.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_jacket_floor1.png",
 	pickuppable: true,
 	minimumLevel: 0
 }, {
@@ -27,7 +27,7 @@ availableArtifacts = [{
 	displayChar: "b",
 	displayName: "a worn stuffed rabbit",
 	description: "You haven't thought of it for years, but it still seems a little sad to give it up now.",
-	imgURL: "http://towerofdoom.hoff.tech/items_bunny_floor2.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_bunny_floor2.png",
 	pickuppable: true,
 	minimumLevel: 1
 }, {
@@ -35,7 +35,7 @@ availableArtifacts = [{
 	displayChar: "c",
 	displayName: "the collar of a lost dog",
 	description: "You found the collar, but not the dog.",
-	imgURL: "http://towerofdoom.hoff.tech/items_collar_floor2.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_collar_floor2.png",
 	pickuppable: true,
 	minimumLevel: 1
 }, {
@@ -43,7 +43,7 @@ availableArtifacts = [{
 	displayChar: "e",
 	displayName: "mom's eyes",
 	description: "You look just like your father, except for--",
-	imgURL: "http://towerofdoom.hoff.tech/items_momeyes_floor4.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_momeyes_floor4.png",
 	pickuppable: true,
 	minimumLevel: 3
 }, {
@@ -51,7 +51,7 @@ availableArtifacts = [{
 	displayChar: "t",
 	displayName: "a memory of someone else",
 	description: "You used to like them. secretly, you hope they still think of you.",
-	imgURL: "http://towerofdoom.hoff.tech/items_thoughts_floor3.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_thoughts_floor3.png",
 	pickuppable: true,
 	minimumLevel: 2
 }, {
@@ -59,7 +59,7 @@ availableArtifacts = [{
 	displayChar: "l",
 	displayName: "dad's laughter",
 	description: "Loud and welcoming.",
-	imgURL: "http://towerofdoom.hoff.tech/items_dadslaugh_floor3.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_dadslaugh_floor3.png",
 	pickuppable: true,
 	minimumLevel: 2
 }, {
@@ -67,7 +67,7 @@ availableArtifacts = [{
 	displayChar: "s",
 	displayName: "an old song",
 	description: "It gets in your head sometimes, but you can never remember the words.",
-	imgURL: "http://towerofdoom.hoff.tech/items_song_floor4.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_song_floor4.png",
 	pickuppable: true,
 	minimumLevel: 3
 }, {
@@ -75,7 +75,7 @@ availableArtifacts = [{
 	displayChar: "p",
 	displayName: "a photo booth reel",
 	description: "These were taken a long time ago.",
-	imgURL: "http://towerofdoom.hoff.tech/items_photos_floor3.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_photos_floor3.png",
 	pickuppable: true,
 	minimumLevel: 2
 }, {
@@ -83,7 +83,7 @@ availableArtifacts = [{
 	displayChar: "h",
 	displayName: "your hands",
 	description: "You've always had them.",
-	imgURL: "http://towerofdoom.hoff.tech/items_hands_floor5.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_hands_floor5.png",
 	pickuppable: true,
 	minimumLevel: 4
 }, {
@@ -91,7 +91,7 @@ availableArtifacts = [{
 	displayChar: "w",
 	displayName: "your words",
 	description: "Use them while you can.",
-	imgURL: "http://towerofdoom.hoff.tech/items_words_floor5.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_words_floor5.png",
 	pickuppable: true,
 	minimumLevel: 4
 }, {
@@ -99,7 +99,7 @@ availableArtifacts = [{
 	displayChar: "h",
 	displayName: "your hate",
 	description: "Bottled up for future use.",
-	imgURL: "http://towerofdoom.hoff.tech/items_hate_floor5.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_hate_floor5.png",
 	pickuppable: true,
 	minimumLevel: 4
 }, {
@@ -107,7 +107,7 @@ availableArtifacts = [{
 	displayChar: "l",
 	displayName: "your love",
 	description: "Not quite a heart, but works just as well.",
-	imgURL: "http://towerofdoom.hoff.tech/items_heart_floor5.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_heart_floor5.png",
 	pickuppable: true,
 	minimumLevel: 4
 }, {
@@ -115,7 +115,7 @@ availableArtifacts = [{
 	displayChar: "s",
 	displayName: "another night's sleep",
 	description: "What's one more, after all this?",
-	imgURL: "http://towerofdoom.hoff.tech/items_sleep_floor4.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_sleep_floor4.png",
 	pickuppable: true,
 	minimumLevel: 3
 }, {
@@ -123,7 +123,7 @@ availableArtifacts = [{
 	displayChar: "t",
 	displayName: "all your time",
 	description: "It just keeps pouring.",
-	imgURL: "http://towerofdoom.hoff.tech/items_time_floor5.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_time_floor5.png",
 	pickuppable: true,
 	minimumLevel: 4
 }, {
@@ -131,7 +131,7 @@ availableArtifacts = [{
 	displayChar: "s",
 	displayName: "one warm summer",
 	description: "You got ice cream, and you got sunburnt. you wonder if that ice cream place is even still around, anymore.",
-	imgURL: "http://towerofdoom.hoff.tech/items_summer_floor4.png",
+	imgURL: "http://smallsacrifices.hoff.tech/items_summer_floor4.png",
 	pickuppable: true,
 	minimumLevel: 3
 }]

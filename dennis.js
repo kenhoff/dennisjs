@@ -54,8 +54,8 @@ bot.startRTM(function(err, bot, payload) {
 
 controller.on('user_channel_join', function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
-		convo.say("Welcome to the Tower Of Doom! Muhahaha.....")
-		convo.say("The Tower Of Doom is a text-based adventure game.")
+		convo.say("Welcome to *Small Sacrifices*.")
+		convo.say("*Small Sacrifices* is a text-based adventure game.")
 		convo.say("type `help` to get started.")
 	})
 })
@@ -114,15 +114,15 @@ controller.hears(["help", "halp"], "direct_message", function(bot, message) {
 })
 controller.hears(["credits", "about"], "direct_message", function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
-		convo.say("The _Tower Of Doom_ is an experimental game created by Bananacat Studios for Global Game Jam 2016.")
+		convo.say("*Small Sacrifices* is an experimental game created by *Bananacat Studios* for *Global Game Jam 2016*.")
 		convo.say({
 			text: "",
 			attachments: [{
 				fallback: "a bananacat",
-				image_url: "http://towerofdoom.hoff.tech/bananacat_512.png"
+				image_url: "http://smallsacrifices.hoff.tech/bananacat_512.png"
 			}]
 		})
-		convo.say("Bananacat Studios is composed of Kacy Corlett, Joshua Du Chene, and Ken Hoff.")
+		convo.say("*Bananacat Studios* is composed of *Kacy Corlett*, *Joshua Du Chene*, and *Ken Hoff*.")
 		convo.say("Thanks for playing! Excelsior!")
 	})
 })
@@ -145,7 +145,7 @@ io.on('connection', function(socket) {
 });
 
 app.get("*", function(req, res) {
-	res.redirect("https://playtowerofdoom.hoff.tech")
+	res.redirect("https://playsmallsacrifices.hoff.tech")
 })
 
 http.listen(process.env.PORT || 3000)

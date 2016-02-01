@@ -48,7 +48,7 @@ module.exports = {
 											text: "",
 											attachments: [{
 												fallback: "splash screen",
-												image_url: "http://towerofdoom.hoff.tech/splash_small.png"
+												image_url: "http://smallsacrifices.hoff.tech/splash_small.png"
 											}]
 										})
 										convo.say("")
@@ -91,7 +91,7 @@ module.exports = {
 									text: "",
 									attachments: [{
 										fallback: "splash screen",
-										image_url: "http://towerofdoom.hoff.tech/splash_small.png"
+										image_url: "http://smallsacrifices.hoff.tech/splash_small.png"
 									}]
 								})
 								convo.say("")
