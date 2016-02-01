@@ -90,6 +90,23 @@ controller.hears(["look around", "look at (.*)", "look (.*)", "look", "examine",
 	})
 })
 
+controller.hears(["quit"], "direct_message", function(bot, message) {
+	bot.startPrivateConversation(message, function(err, convo) {
+		convo.ask("Are you sure you want to quit?", [{
+			pattern: bot.utterances.yes,
+			callback: function(response, convo) {
+				controller.storage.users.save({
+					id: message.user,
+					gameActive: false
+				}, function(err) {
+					convo.say("Game ended.")
+					convo.next()
+				})
+			}
+		}])
+	})
+})
+
 lookUpObjectDisplayName = function(objectID) {
 	for (object of require("./artifacts.js").artifactReference()) {
 		if (object.id == objectID) {
@@ -102,16 +119,17 @@ makeNewGame = require("./makeNewGame.js")
 
 require("./movement.js")(controller, io)
 require("./placeOnAltar.js")(controller, io)
-inventory = require("./inventory.js")(controller, io)
+require("./inventory.js")(controller, io)
 
 
-commands = ["new game", "look", "move <direction>", "look <item>", "inventory", "pick up <item", "drop <item>", "place <item> on altar", "credits"]
+commands = ["new game", "look", "move <direction>", "look <item>", "inventory", "pick up <item", "drop <item>", "place <item> on altar", "credits", "quit"]
 for (var i = 0; i < commands.length; i++) {
 	commands[i] = "`" + commands[i] + "`"
 }
 controller.hears(["help", "halp"], "direct_message", function(bot, message) {
 	bot.reply(message, "Try some of these commands:\n" + commands.join("\n"))
 })
+
 controller.hears(["credits", "about"], "direct_message", function(bot, message) {
 	bot.startPrivateConversation(message, function(err, convo) {
 		convo.say("*Small Sacrifices* is an experimental game created by *Bananacat Studios* for *Global Game Jam 2016*.")
