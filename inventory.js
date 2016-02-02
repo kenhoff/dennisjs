@@ -95,12 +95,12 @@ function attemptToGet(itemString, map, ritual_progress, io, user) {
 					}
 					ritual_progress.length = 0
 					io.emit("play_audio", {
-						for: message.user,
+						for: user,
 						effect: "pickup"
 					})
 					if (fizzleText != "") {
 						io.emit("play_audio", {
-							for: message.user,
+							for: user,
 							effect: "fizzle"
 						})
 					}
