@@ -30,7 +30,7 @@ module.exports = {
 		newGameString = "_type `help` to learn about commands._"
 			// convo.say("Go to http://dennis.hoff.tech/game/" + message.user + " for audio.")
 		controller.storage.users.get(message.user, function(err, user_game) {
-			if (user_game.gameActive == true) {
+			if ((user_game) && ("gameActive" in user_game) && user_game.gameActive == true) {
 				bot.startPrivateConversation(message, function(err, convo) {
 					convo.say("You already have a game started!")
 					convo.ask("Would you like to start a new one?", [{
