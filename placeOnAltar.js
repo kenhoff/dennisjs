@@ -17,6 +17,10 @@ module.exports = function(controller, io) {
 								ritual_progress: user_game.ritual_progress,
 								level: user_game.level
 							})
+							io.emit("play_audio", {
+								for: message.user,
+								level: "complete"
+							})
 							convo.say(responseString)
 							convo.say("")
 							convo.say("")

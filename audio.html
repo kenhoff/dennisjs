@@ -22,6 +22,7 @@
 <audio id="correct5" src="/Correct Item 5.ogg" />
 <audio id="complete" src="/Level Complete.ogg" />
 <audio id="fizzle" src="/Wrong Item Fizzle.ogg" />
+<audio id="gameCompleteMusic" src="/From the Top of the Tower (Win Game Music).ogg" />
 
 
 
@@ -48,6 +49,8 @@
 	correct5 = document.getElementById('correct5')
 	complete = document.getElementById('complete')
 	fizzle = document.getElementById('fizzle')
+
+	gameCompleteMusic = document.getElementById("gameCompleteMusic")
 
 	level0LoopTimeout = setTimeout(function() {
 		console.log("playing level 0 loop");
@@ -84,6 +87,9 @@
 					// crossfade, duh
 					level3MusicLoop.pause()
 					level4MusicLoop.play()
+				} else if (data.level == "complete") {
+					level4MusicLoop.pause()
+					gameCompleteMusic.play()
 				}
 			} else if ("effect" in data) {
 				if (data.effect == "footsteps") {
